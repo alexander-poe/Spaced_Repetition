@@ -8,15 +8,14 @@ import store from './store';
 console.log(`Client running in ${process.env.NODE_ENV} mode`);
 
 
-const questionCard = () => 
-	<div className="card">
-		<h1>
+const QuestionCard = () => 
+	<div className="card">	
+		<h1 className="centered">
 		Je suis`
 		</h1>
 	</div>	
-const inputCard = () => 
+const InputCard = () => 
 	<div className="card">
-		<h1>yada</h1>
 		<form>
 			<input
 			type="text"
@@ -39,10 +38,10 @@ const SpacedRep = () => {
 			<h2> 
 			Spaced 
 			</h2>
-			<div className="container">
-				<Link to="/"> Back </Link>
-				<inputCard/>
-				<questionCard/>
+			<Link to="/"> Back </Link>
+			<div className="container">	
+				<QuestionCard/>
+				<InputCard/>
 			</div>
 		</div>
     )
