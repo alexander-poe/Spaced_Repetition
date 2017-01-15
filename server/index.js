@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import express from 'express';
 
 const HOST = process.env.HOST;
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 console.log(`Server running in ${process.env.NODE_ENV} mode`);
 
