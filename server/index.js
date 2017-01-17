@@ -27,7 +27,8 @@ app.get('/game', function(req, res) {
                 message: 'Internal Server Error'
             });
         }
-        res.json(userData);
+        let current = userData[0];
+        res.json({score: current.score, question: current.questions[0]});
     });
 });
 
