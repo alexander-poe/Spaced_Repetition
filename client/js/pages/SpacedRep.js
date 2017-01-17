@@ -1,17 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
 import QuestionCard from './pieces/questionscard';
-import InputCard from './pieces/input'
+import InputCard from './pieces/input';
+import Counter from './pieces/counter';
 
 
-const Counter = (props) => {
-	return (
-		<div className="counter-box">
-			<h3>{23}</h3>
-		</div>
-		)
-
-}
 
 
 class SpacedRep extends React.Component {
@@ -34,7 +27,7 @@ class SpacedRep extends React.Component {
 					<QuestionCard word={'Je suis'}/>
 					<InputCard funct={this.handleSubmit}/>
 				</div>
-				<Counter/>
+				<Counter count={23}/>
 			</div>
 	    )
 	}
