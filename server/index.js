@@ -9,18 +9,17 @@ mongoose.Promise = global.Promise;
 
 const algorithm = (questions, answer) => {
 
-    if (answer) {
-        questions[0].ind *= 2;
-        questions[1].ind -= 1;
+    if (answer === "true") {
+        let m = questions[0].ind * 2;
+        questions[0].ind += m;
     } else {
-        questions[0].ind = 1;
-        questions[1].ind -= 1;
+        questions[0].ind = 2;
+        questions[1].ind = 1;
     }
 
     return questions.sort((a, b) => a.ind - b.ind);
 
 }
-
 
 const DATABASE_URL = process.env.DATABASE_URL;
 
@@ -49,8 +48,17 @@ app.get('/game', function(req, res) {
 
 app.post('/game', function(req, res) {
     User.create({
-        score: req.body.score,
-        questions: req.body.questions
+        score: 0,
+        questions: [{english: "one", french: "un", ind: 1}, 
+        {english: "two", french: "deux", ind: 2}, 
+        {english: "three", french: "trois", ind: 3}, 
+        {english: "four", french: "quatre", ind: 4}, 
+        {english: "five", french: "cinq", ind: 5}, 
+        {english: "six", french: "six", ind: 6}, 
+        {english: "seven", french: "sept", ind: 7}, 
+        {english: "eight", french: "huit", ind: 8}, 
+        {english: "nine", french: "neuf", ind: 9}, 
+        {english: "ten", french: "dix", ind: 10}, ]
     }, function(err, user) {
         if (err) {
             return res.status(500).json({
@@ -73,7 +81,7 @@ app.put('/game', function(req, res) {
     .then(function(userData) {
         let current = userData[0];
         let score = current.score;
-        if (req.body.answer) {
+        if (req.body.answer === "true") {
             score += 1;
         }
         let questions = algorithm(current.questions, req.body.answer);
@@ -84,7 +92,7 @@ app.put('/game', function(req, res) {
                     message: 'Internal Server Error'
                 });
             }
-            res.status(201).json(questions[0]);
+            res.status(201).json({score: score, question: questions[0]});
         });
     })
 })
