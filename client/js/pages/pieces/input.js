@@ -1,8 +1,8 @@
 import React from 'react';
 
-const InputCard = () => 
+const InputCard = (props) => 
 	<div className="card">
-		<form>
+		<form onSubmit={props.funct}>
 			<input
 			type="text"
 			/>

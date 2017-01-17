@@ -1,9 +1,9 @@
 import React from 'react';
 
-const QuestionCard = () => 
+const QuestionCard = (props) => 
 	<div className="card">	
 		<h1 className="centered">
-		Je suis`
+			{ props.word }
 		</h1>
 	</div>	
 
