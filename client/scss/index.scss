@@ -4,6 +4,11 @@ input[type=text] {
 	color: black;
 }
 
+.home {
+	height: 22px;
+	margin: 5px;
+}
+
 h2 {
  color: white;
 }
@@ -17,17 +22,17 @@ body {
 }
 
 input {
-	width: 96%;
-	height:340px;
+	width: 97%;
+	height:344px;
 }
 
 #app {
   background-color: #52AFA2;
   height: 500px;
-  width: 50%;
+  width: 60%;
+  margin: 10px;
   align-self: flex-end; 
-  text-align: center; 
-  border: 1px solid black;  
+  text-align: center;   
   
 }
 
@@ -50,5 +55,17 @@ input {
     justify-content: center;
     align-items: center;
 	margin: auto;
-	width: 90%;
+	width: 100%;
+}
+
+.welcome {
+	background-color: #7DDAD1;
+	margin: 7%;
+	height: 95px;
+}
+
+.login {
+	margin: 7%;
+	height: 273px;
+	background-color: #7DDAD1;
 }
