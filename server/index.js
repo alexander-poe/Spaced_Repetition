@@ -1,7 +1,13 @@
+require('dotenv').config()
 import 'babel-polyfill';
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import User from './models/user';
+mongoose.Promise = global.Promise;
+
+
+const DATABASE_URL = process.env.DATABASE_URL;
 
 const HOST = process.env.HOST;
 const PORT = process.env.PORT || 3000;
@@ -14,29 +20,80 @@ app.use(express.static(process.env.CLIENT_PATH));
 
 app.use(bodyParser.json());
 
-app.get('/game', (req, res) => {
-    res.status(200).json({score: 0, word: {french: 'chat', english: 'cat'}})
+app.get('/game', function(req, res) {
+    User.find(function(err, userData) {
+        if (err) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+        res.json(userData);
+    });
 });
 
-app.put('/game', (req, res) => {
-    //req format should be: {answer: true, word: {french: chat, english: cat}}
-    res.status(200).json({score: 1, word: {french: 'un', english: 'one'}})
-});
+// app.post('/game', function(req, res) {
+//     User.create({
+//         score: req.body.score,
+//         questions: req.body.questions
+//     }, function(err, user) {
+//         if (err) {
+//             return res.status(500).json({
+//                 message: 'Internal Server Error'
+//             });
+//         }
+//         res.status(201).json(user);
+//     });
+// });
 
-function runServer() {
-    return new Promise((resolve, reject) => {
-        app.listen(PORT, HOST, (err) => {
+app.put('/game', function(req, res) {
+    User.find(function(err, userData) {
+        if (err) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+        return userData;
+    })
+    .then(function(userData) {
+        let score = userData[0].score + 1;
+        User.findOneAndUpdate({__v: 0}, {$set:{score:score}},function(err, user){
             if (err) {
-                console.error(err);
-                reject(err);
+                return res.status(500).json({
+                    message: 'Internal Server Error'
+                });
             }
+            res.status(201).json(user);
+        });
+    })
+})
 
-            const host = HOST || 'localhost';
-            console.log(`Listening on ${host}:${PORT}`);
+app.use('*', function(req, res) {
+    res.status(404).json({
+        message: 'Not Found'
+    });
+});
+
+
+const runServer = (callback) => {
+    mongoose.connect(DATABASE_URL, (err) => {
+        if (err && callback) {
+            return callback(err);
+        }
+
+        app.listen(PORT, () => {
+            console.log('Listening on localhost:' + PORT);
+            if (callback) {
+                callback();
+            }
         });
     });
-}
+};
+
 
 if (require.main === module) {
-    runServer();
-}
+    runServer((err) => {
+        if (err) {
+            console.error(err);
+        }
+    });
+};

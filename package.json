@@ -81,7 +81,11 @@
     "webpack": "^1.13.1"
   },
   "dependencies": {
+<<<<<<< HEAD
+    "dotenv": "^4.0.0",
+=======
     "body-parser": "^1.15.2",
+>>>>>>> ccab661cd0e1c2507c65847331b329cd72f1aa2c
     "express": "^4.14.0",
     "isomorphic-fetch": "^2.2.1",
     "mongoose": "^4.7.7",
