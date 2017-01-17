@@ -1,10 +1,19 @@
+input[type=text] {
+	text-align: center;
+	font-size: 1.5em;
+	color: black;
+}
 
+h2 {
+ color: white;
+}
 
 body {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: baseline;
+  background-color: #3F5461;
 }
 
 input {
@@ -13,6 +22,7 @@ input {
 }
 
 #app {
+  background-color: #52AFA2;
   height: 500px;
   width: 50%;
   align-self: flex-end; 
@@ -26,15 +36,14 @@ input {
 }
 
 .card {
-	border: 1px solid black;
-	background-color: blue;
+	background-color: #7DDAD1;
 	width: 50%;
 
 }
 
 .container {
-	border: 2px solid red;
-	background-color: blue;
+	
+	background-color: #7DDAD1;
 	height: 350px;
 	display: flex;
     flex-direction: row;
