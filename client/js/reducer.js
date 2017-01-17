@@ -2,10 +2,10 @@ import React from 'react';
 import * as actions from './actions';
 
 const initState = {
-	data: []
+	typewriter: -1
 };
 
-const reducer = (state, action) => {
+const reducer = (state=initState, action) => {
 	switch (action.type) {
 		case 'INCREMENT' :
 			return {
@@ -22,7 +22,13 @@ const reducer = (state, action) => {
 				...state, 
 				cards: data
 			} 
+		case actions.ENGAGE_TYPEWRITER :
+			return {
+				...state,
+				typewriter: action.num
+			}	
 	}
+	return state;
 }	
 
 export default reducer;

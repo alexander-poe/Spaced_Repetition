@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { Link } from 'react-router';
 import QuestionCard from './pieces/questionscard';
 import InputCard from './pieces/input';
@@ -16,6 +17,7 @@ class SpacedRep extends React.Component {
 		//if the answer it english matches the answer given
 		//do css highlight green, or animate 
 		//if not shake and highlight red. 
+		console.log(this.props.store)
 		alert('hey')
 	}
 
@@ -36,4 +38,8 @@ class SpacedRep extends React.Component {
 	}
 }   
 
-export default SpacedRep;
+const mapStateToProps = (state, props) => ({
+	store: state
+});
+
+export default connect(mapStateToProps)(SpacedRep);

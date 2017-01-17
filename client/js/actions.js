@@ -3,6 +3,11 @@ const game_url = "/game";
 export const INCREMENT = 'INCREMENT';
 export const DECREMENT = 'DECREMENT';
 
+export const ENGAGE_TYPEWRITER = 'ENGAGE_TYPEWRITER';
+export const engageTypeWriter = num => ({
+	type: ENGAGE_TYPEWRITER,
+	num
+})
 
 export const GET_CARDS_SUCCESS = "GET_CARDS_SUCCESS";
 export const getCardsSuccess = data => ({
