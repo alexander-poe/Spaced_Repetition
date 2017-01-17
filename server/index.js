@@ -7,6 +7,21 @@ import User from './models/user';
 mongoose.Promise = global.Promise;
 
 
+const algorithm = (questions, answer) => {
+
+    if (answer) {
+        questions[0].ind *= 2;
+        questions[1].ind -= 1;
+    } else {
+        questions[0].ind = 1;
+        questions[1].ind -= 1;
+    }
+
+    return questions.sort((a, b) => a.ind - b.ind);
+
+}
+
+
 const DATABASE_URL = process.env.DATABASE_URL;
 
 const HOST = process.env.HOST;
@@ -32,19 +47,19 @@ app.get('/game', function(req, res) {
     });
 });
 
-// app.post('/game', function(req, res) {
-//     User.create({
-//         score: req.body.score,
-//         questions: req.body.questions
-//     }, function(err, user) {
-//         if (err) {
-//             return res.status(500).json({
-//                 message: 'Internal Server Error'
-//             });
-//         }
-//         res.status(201).json(user);
-//     });
-// });
+app.post('/game', function(req, res) {
+    User.create({
+        score: req.body.score,
+        questions: req.body.questions
+    }, function(err, user) {
+        if (err) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+        res.status(201).json(user);
+    });
+});
 
 app.put('/game', function(req, res) {
     User.find(function(err, userData) {
@@ -56,14 +71,20 @@ app.put('/game', function(req, res) {
         return userData;
     })
     .then(function(userData) {
-        let score = userData[0].score + 1;
-        User.findOneAndUpdate({__v: 0}, {$set:{score:score}},function(err, user){
+        let current = userData[0];
+        let score = current.score;
+        if (req.body.answer) {
+            score += 1;
+        }
+        let questions = algorithm(current.questions, req.body.answer);
+
+        User.findOneAndUpdate({__v: 0}, {$set:{score:score, questions:questions}},function(err, user){
             if (err) {
                 return res.status(500).json({
                     message: 'Internal Server Error'
                 });
             }
-            res.status(201).json(user);
+            res.status(201).json(questions[0]);
         });
     })
 })
