@@ -3,13 +3,18 @@ import { Link }  from 'react-router';
 
 const Welcome = () => {
 	return (
-		<div className="welcome">
-			<h1> Hello </h1>
-			<Link 
-			to="/game"
-			>
-			Enter
-			</Link> 
+		<div>
+			<div className="welcome">
+				<h1> Hello </h1>
+		
+			</div>
+			<div className="login">
+				<Link 
+				to="/game"
+				>
+				Enter
+				</Link> 
+			</div>
 		</div>
 		)
 }
