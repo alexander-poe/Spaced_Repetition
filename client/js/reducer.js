@@ -2,11 +2,12 @@ import React from 'react';
 import * as actions from './actions';
 
 const initState = {
-	typewriter: -1,
 	question: {
-		score: 0, 
-		question: 'jesuix'
-	}
+		english: "house", 
+		french: "maison", 
+		freq: 1,
+	}, 
+	score: 2,
 };
 
 const reducer = (state=initState, action) => {
@@ -22,9 +23,10 @@ const reducer = (state=initState, action) => {
 				counter: data
 			}
 		case 'GET_CARD_SUCCESS' :
+				console.log('reducer', action.question.question)
 						return {
 				...state, 
-				question: action.question
+				question: action.question.question
 			}; 
 		case actions.ENGAGE_TYPEWRITER :
 			console.log("this is the reducer!" + action.num)
