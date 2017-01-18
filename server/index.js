@@ -84,27 +84,23 @@ app.post('/game', function(req, res) {
             });
         }
         let current = userData;
-        console.log(userData);
-    });
-    User.create({
-        score: 0,
-        questions: [{english: "one", french: "un", freq: 1}, 
-        {english: "two", french: "deux", freq: 1}, 
-        {english: "three", french: "trois", freq: 1}, 
-        {english: "four", french: "quatre", freq: 1}, 
-        {english: "five", french: "cinq", freq: 1}, 
-        {english: "six", french: "six", freq: 1}, 
-        {english: "seven", french: "sept", freq: 1}, 
-        {english: "eight", french: "huit", freq: 1}, 
-        {english: "nine", french: "neuf", freq: 1}, 
-        {english: "ten", french: "dix", freq: 1}]
-    }, function(err, user) {
-        if (err) {
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        }
-        res.status(201).json(user);
+        return userData;
+    })
+    .then(function(userData) {
+        let words = userData.map((word) => {
+            return {word_id: word._id, freq: 1}
+        });
+        User.create({
+            score: 0,
+            questions: words
+        }, function(err, user) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Internal Server Error'
+                });
+            }
+            res.status(201).json(user);
+        });
     });
 });
 
@@ -124,16 +120,20 @@ app.put('/game', function(req, res) {
             score += 1;
         }
         let questions = algorithm(current.questions, req.body.answer);
-        console.log(questions);
         User.findOneAndUpdate({_id: current._id}, {$set:{score:score, questions:questions}},function(err, user){
             if (err) {
                 return res.status(500).json({
                     message: 'Internal Server Error'
                 });
             }
-            res.status(201).json({score: score, question: questions[0]});
+            Word.find({_id: questions[0].word_id}, function(err, word) {
+                let newWord = {french: word[0].french, 
+                    english: word[0].english, 
+                    freq: questions[0].freq};
+                res.status(200).json({score: score, question: newWord});
+            })
         });
-    })
+    });
 })
 
 app.use('*', function(req, res) {
