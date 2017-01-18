@@ -73,8 +73,8 @@ passport.use(new BearerStrategy(
 ));
 
 const algorithm = (questions, answer) => {
-
-    if (answer === "true") {
+    console.log('anser:', answer)
+    if (answer === true) {
         questions[0].freq *= 2;
     } else {
         questions[0].freq = 1;
@@ -182,8 +182,10 @@ const createUser = (profile) => {
 
 };
 
+
 app.put('/game', passport.authenticate('bearer', { session: false }), 
     function(req, res) {
+
     User.find(function(err, userData) {
         if (err) {
             return res.status(500).json({
@@ -196,6 +198,7 @@ app.put('/game', passport.authenticate('bearer', { session: false }),
         let current = userData[0];
         let score = current.score;
         if (req.body.answer === "true") {
+            console.log('req.body.answer')
             score += 1;
         }
         let questions = algorithm(current.questions, req.body.answer);

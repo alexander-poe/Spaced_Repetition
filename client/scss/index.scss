@@ -1,7 +1,32 @@
 input[type=text] {
 	text-align: center;
-	font-size: 1.5em;
+	font-size: 2.5em;
 	color: black;
+}
+
+input {
+	width: 98.9%;
+	height:344px;
+}
+
+.goog {
+	display: flex;
+	justify-content: center;
+}
+
+.birdie {
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
+
+.counter-box {
+	background-color: #132452;
+	border: 1px solid black;
+	color: white;
 }
 
 .home {
@@ -18,19 +43,16 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: baseline;
-  background-color: #3F5461;
+  background-img: url("./assets/france.jpg");
 }
 
-input {
-	width: 97%;
-	height:344px;
-}
+
 
 #app {
-  background-color: #52AFA2;
+  background-color: #132452;
   height: 500px;
   width: 60%;
-  margin: 10px;
+  margin: 9%;
   align-self: flex-end; 
   text-align: center;   
   
@@ -38,17 +60,18 @@ input {
 
 .centered {
 	text-align: center;
+	color: white;
 }
 
 .card {
-	background-color: #7DDAD1;
+	background-color: #CC051C;
 	width: 50%;
 
 }
 
 .container {
 	
-	background-color: #7DDAD1;
+	background-color: #CC051C;
 	height: 350px;
 	display: flex;
     flex-direction: row;
@@ -59,13 +82,15 @@ input {
 }
 
 .welcome {
-	background-color: #7DDAD1;
+	background-color: #132452;
 	margin: 7%;
-	height: 95px;
+	height: 131px;
 }
 
 .login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin: 7%;
-	height: 273px;
-	background-color: #7DDAD1;
+
 }

@@ -13,19 +13,29 @@ class QuestionCard extends React.Component {
 
 		<div 
 		className="card">	
-			<TypeWriter 
-			typing={1} 
-			onTypingEnd={() => 
-				this.props.dispatch
-			}>	
+		
 				<h1 
 				className="centered">		
 					{ this.props.word }
 				</h1>		
-			</TypeWriter>	
-	 	</div>	
+			 	</div>	
 		
 		)
 	}
 }
+
+const mapStateToProps = (state, props) => ({
+	typewriter: state.typewriter,
+	question: state.question
+});
+
 export default connect()(QuestionCard);
+
+	// <TypeWriter 
+	// 		typing={1} 
+	// 		onTypingEnd={() => 
+	// 			this.props.dispatch
+	// 		}>	
+ //       {stuff}
+	// 		<TypeWriter/>
+ //       }
