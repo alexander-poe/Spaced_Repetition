@@ -24,7 +24,7 @@ class SpacedRep extends React.Component {
 					🇫🇷
 				</Link>
 				<h2> 
-				instaFrench 🇫🇷
+				instaFrench 
 				</h2>
 				{this.props.typewriter}
 				<div className="container">	
