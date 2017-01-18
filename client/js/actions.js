@@ -9,17 +9,18 @@ export const engageTypeWriter = num => ({
 	num
 })
 
-export const GET_CARDS_SUCCESS = "GET_CARDS_SUCCESS";
-export const getCardsSuccess = data => ({
-	type: GET_CARDS_SUCCESS,
-	data
+export const GET_CARD_SUCCESS = "GET_CARDS_SUCCESS";
+export const getCardSuccess = question => ({
+	type: GET_CARD_SUCCESS,
+	question
 });
-export const getCards = cards => dispatch => {
+export const getCard = data => dispatch => {
 	return fetch(game_url)
 		.then(res => {
-			return res.status(200).json({})
+			return res.json({})
 		}).then(res => {
-			dispatch(getCardsSuccess(res.data));
+			console.log('from here', res)
+			dispatch(getCardSuccess(res));
 		}).catch(err => {
 			console.error('error: ', err)
 		});
