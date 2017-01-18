@@ -22,7 +22,7 @@ export const sendAnswer = answer => dispatch => {
 		return res;
 	}).then(res => res.json())
 	.then(res => {
-		console.log(res)
+		console.log('next question:', res)
 		dispatch(nextQuestion(res));
 	}).catch(er => {
 		console.error('reducer: ', er)
