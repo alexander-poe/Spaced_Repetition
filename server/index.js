@@ -18,16 +18,43 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:3000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    //res.cookie('token', accessToken);
     User.findOne({googleId: profile.id}, function(err, user) {
-        if(!user) {
-            return done(null, createUser(profile, accessToken));
-        }
         if (err) {
             return done(null, false);
+        } else if(!user) {
+                Word.find(function(err, userData) {
+                    if (err) {
+                        return res.status(500).json({
+                            message: 'Internal Server Error'
+                        });
+                    }
+                    let current = userData;
+                    return userData;
+                })
+                .then(function(userData) {
+                    let words = userData.map((word) => {
+                        return {word_id: word._id, freq: 1}
+                    });
+                    User.create({
+                        googleId: profile.id,
+                        name: profile.displayName,
+                        score: 0,
+                        questions: words
+                    }, function(err, user) {
+                        console.log("user part 3")
+                        if (err) {
+                            return res.status(500).json({
+                                message: 'Internal Server Error'
+                            });
+                        }
+                        console.log("in CreateUser:", user);
+                        return done(null, user);
+                    });
+                })
+        } else {
+            return done(null, user);
         }
     });
-    return done(null, profile);
   }
 ));
 
@@ -65,10 +92,10 @@ app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login', session: false }),
+  passport.authenticate('google', { failureRedirect: '/error', session: false }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.redirect('/hello_world');
   });
 
 import BearerStrategy from 'passport-http-bearer';
@@ -120,8 +147,8 @@ app.get('/game', passport.authenticate('bearer', { session: false }),
     })
 });
 
-const createUser = (profile, accessToken) => {
-    Word.find(function(err, userData) {
+const createUser = (profile) => {
+    return Word.find(function(err, userData) {
         if (err) {
             return res.status(500).json({
                 message: 'Internal Server Error'
@@ -135,20 +162,22 @@ const createUser = (profile, accessToken) => {
             return {word_id: word._id, freq: 1}
         });
         User.create({
-            token: accessToken,
             googleId: profile.id,
             name: profile.displayName,
             score: 0,
             questions: words
         }, function(err, user) {
+            console.log("user part 3")
             if (err) {
                 return res.status(500).json({
                     message: 'Internal Server Error'
                 });
             }
+            console.log("in CreateUser:", user);
             return user;
         });
-    });
+    })
+
 };
 
 app.put('/game', passport.authenticate('bearer', { session: false }), 
