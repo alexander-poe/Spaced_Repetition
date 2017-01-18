@@ -65,15 +65,29 @@ app.get('/',
   });
 
 app.get('/game', function(req, res) {
+    let user = {};
     User.find(function(err, userData) {
         if (err) {
             return res.status(500).json({
                 message: 'Internal Server Error'
             });
         }
-        let current = userData[0];
-        res.json({score: current.score, question: current.questions[0]});
-    });
+        return userData;
+    })
+    .then(userData => {
+        user.score = userData[0].score;
+        let id = userData[0].questions[0].word_id;
+        console.log(id)
+        Word.find({_id: id}, function(err, word) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Internal Server Error'
+                });
+            }
+            user.question = word[0];
+            res.status(200).json(user)         
+        })
+    })
 });
 
 app.post('/game', function(req, res) {
@@ -127,10 +141,7 @@ app.put('/game', function(req, res) {
                 });
             }
             Word.find({_id: questions[0].word_id}, function(err, word) {
-                let newWord = {french: word[0].french, 
-                    english: word[0].english, 
-                    freq: questions[0].freq};
-                res.status(200).json({score: score, question: newWord});
+                res.status(200).json({score: score, question: word[0]});
             })
         });
     });
