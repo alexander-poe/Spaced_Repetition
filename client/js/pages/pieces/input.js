@@ -9,7 +9,6 @@ const answerCheck = (guess, answer) => {
 
 const InputCard = (props) => {
 	let textInput = null;
-	console.log('inputcard:', props.question.english )
 	const currentAnswer = props.question.english;
 	return(
 		

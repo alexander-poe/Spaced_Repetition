@@ -24,8 +24,8 @@ passport.use(new GoogleStrategy({
 ));
 
 const algorithm = (questions, answer) => {
-
-    if (answer === "true") {
+    console.log('anser:', answer)
+    if (answer === true) {
         questions[0].freq *= 2;
     } else {
         questions[0].freq = 1;

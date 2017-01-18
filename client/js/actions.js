@@ -24,7 +24,6 @@ export const sendAnswer = answer => dispatch => {
 		return res;
 	}).then(res => res.json())
 	.then(res => {
-		console.log('next question:', res);
 		dispatch(nextQuestion(res));
 	}).catch(er => {
 		console.error('reducer: ', er)
@@ -40,7 +39,6 @@ export const getCard = data => dispatch => {
 		.then(res => {
 			return res.json()
 		}).then(res => {
-			console.log('from here', res)
 			dispatch(getCardSuccess(res));
 		}).catch(err => {
 			console.error('error: ', err)

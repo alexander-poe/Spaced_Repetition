@@ -11,9 +11,7 @@ class SpacedRep extends React.Component {
 		super(props);
 	}	
 	componentDidMount() {
-		 this.props.dispatch(actions.getCard());
-		 console.log('from spaced rep', this.props.question)
-		 
+		 this.props.dispatch(actions.getCard());		 
 	}
 	render() {
 		const count = 0;
@@ -24,7 +22,7 @@ class SpacedRep extends React.Component {
 					🇫🇷
 				</Link>
 				<h2> 
-				instaFrench 🇫🇷
+				instaFrench 
 				</h2>
 				{this.props.typewriter}
 				<div className="container">	

@@ -23,7 +23,6 @@ const reducer = (state=initState, action) => {
 				counter: data
 			}
 		case 'GET_CARD_SUCCESS' :
-				console.log('reducer', action.question.question)
 			return {
 				...state, 
 				question: action.question.question
@@ -34,6 +33,7 @@ const reducer = (state=initState, action) => {
 				typewriter: action.num
 			}
 		case actions.NEXT_QUESTION :
+			console.log('this is in the reducer', action.question)
 			return { 
 				...state,
 				question: action.question.question
