@@ -29,11 +29,14 @@ const reducer = (state=initState, action) => {
 				question: action.question.question
 			}; 
 		case actions.ENGAGE_TYPEWRITER :
-			console.log("this is the reducer!" + action.num)
 			return {
 				...state,
 				typewriter: action.num
-			}	
+			}
+		case actions.NEXT_QUESTION :
+			return { 
+				...state,
+				question: action.question.question}	
 	}
 	return state;
 }	
