@@ -11,7 +11,9 @@ class SpacedRep extends React.Component {
 		super(props);
 	}	
 	componentDidMount() {
-		 this.props.dispatch(actions.getCard());		 
+		 this.props.dispatch(actions.getCard());
+		 console.log('from spaced rep', this.props.question)
+		 
 	}
 	render() {
 		const count = 0;

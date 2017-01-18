@@ -4,7 +4,7 @@ import * as actions from './actions';
 const initState = {
 	question: {
 		english: "house", 
-		french: "maison", 
+		french: "", 
 		freq: 1,
 	}, 
 	score: 2,
