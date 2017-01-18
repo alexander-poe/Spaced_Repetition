@@ -1,5 +1,6 @@
 import React from 'react';
 import TypeWriter from 'react-typewriter';
+import { connect } from 'react-redux'
 //pass in value from outside of page that hits if statements determining animation
 
 
@@ -12,7 +13,7 @@ class QuestionCard extends React.Component {
 	return(
 
 		<div className="card">	
-			<TypeWriter typing={1} onTypingEnd={() => this.props.dispatch()}>	
+			<TypeWriter typing={1} onTypingEnd={() => this.props.dispatch}>	
 			<h1 className="centered">		
 				{ this.props.word }
 			</h1>		
@@ -21,4 +22,4 @@ class QuestionCard extends React.Component {
 		)
 	}
 }
-export default QuestionCard;
+export default connect()(QuestionCard);

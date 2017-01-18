@@ -6,6 +6,7 @@ import QuestionCard from './pieces/questionscard';
 import InputCard from './pieces/input';
 import Counter from './pieces/counter';
 
+
 class SpacedRep extends React.Component {
 	constructor(props) {
 		super(props);
@@ -18,6 +19,7 @@ class SpacedRep extends React.Component {
 
 
 	render() {
+		 console.log('from spaced render', this.props.question)
 		return (
 			<div>
 				<h2> 
