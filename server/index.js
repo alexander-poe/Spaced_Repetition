@@ -26,8 +26,8 @@ passport.use(new GoogleStrategy({
 ));
 
 const algorithm = (questions, answer) => {
-
-    if (answer === "true") {
+    console.log('anser:', answer)
+    if (answer === true) {
         questions[0].freq *= 2;
     } else {
         questions[0].freq = 1;
@@ -133,6 +133,7 @@ app.post('/game', function(req, res) {
 });
 
 app.put('/game', function(req, res) {
+    console.log('req', req.body.answer)
     User.find(function(err, userData) {
         if (err) {
             return res.status(500).json({
@@ -145,6 +146,7 @@ app.put('/game', function(req, res) {
         let current = userData[0];
         let score = current.score;
         if (req.body.answer === "true") {
+            console.log('req.body.answer')
             score += 1;
         }
         let questions = algorithm(current.questions, req.body.answer);

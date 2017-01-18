@@ -1,21 +1,41 @@
 import React from 'react';
 import { Link }  from 'react-router';
 
-const Welcome = () => {
+
+
+class Welcome extends React.Component {
+	render() {
+
+	function onSignIn(googleUser) {
+  		var profile = googleUser.getBasicProfile();
+		console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+		console.log('Name: ' + profile.getName());
+		console.log('Image URL: ' + profile.getImageUrl());
+		console.log('Email: ' + profile.getEmail());
+	}
+
 	return (
 		<div>
 			<div className="welcome">
-				<h1> Hello </h1>		
+
+				
+		
+				<h2> instaFrench 🇫🇷 </h2>
+				
+		
 			</div>
 			<div className="login">
-				<a 
-				href="/auth/google"
+				
+				<Link 
+				to="/auth/google"
 				>
-				Sign in with Google
-				</a> 
+				<div className="goog g-signin2" data-onsuccess="onSignIn"></div>
+				</Link> 
+
 			</div>
 		</div>
 		)
+	}
 }
 
 export default Welcome;	

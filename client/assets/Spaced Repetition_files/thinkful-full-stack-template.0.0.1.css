@@ -1,0 +1,71 @@
+input[type=text] {
+  text-align: center;
+  font-size: 1.5em;
+  color: black; }
+
+.birdie {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH"; }
+
+.counter-box {
+  border: 1px solid #dad9d9;
+  background-color: #7DDAD1; }
+
+.home {
+  height: 22px;
+  margin: 5px; }
+
+h2 {
+  color: white; }
+
+body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: baseline;
+  background-color: #3F5461; }
+
+input {
+  width: 97%;
+  height: 344px; }
+
+#app {
+  background-color: #52AFA2;
+  height: 500px;
+  width: 60%;
+  margin: 10px;
+  align-self: flex-end;
+  text-align: center; }
+
+.centered {
+  text-align: center; }
+
+.card {
+  background-color: #7DDAD1;
+  width: 50%; }
+
+.container {
+  background-color: #7DDAD1;
+  height: 350px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 100%; }
+
+.welcome {
+  background-color: #7DDAD1;
+  margin: 7%;
+  height: 95px; }
+
+.login {
+  margin: 7%;
+  height: 273px;
+  background-color: #7DDAD1; }
+
+/*# sourceMappingURL=thinkful-full-stack-template.0.0.1.css.map */
