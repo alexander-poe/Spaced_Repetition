@@ -10,6 +10,7 @@ import Word from './models/word';
 mongoose.Promise = global.Promise;
 
 dotenv.config();
+var BearerStrategy = require('passport-http-bearer').Strategy;
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 passport.use(new GoogleStrategy({
@@ -18,10 +19,56 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:3000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log(profile);
-    // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-       return done(null, profile);
-    // });
+    User.findOne({googleId: profile.id}, function(err, user) {
+        if (err) {
+            return done(null, false);
+        } else if(!user) {
+                Word.find(function(err, userData) {
+                    if (err) {
+                        return res.status(500).json({
+                            message: 'Internal Server Error'
+                        });
+                    }
+                    let current = userData;
+                    return userData;
+                })
+                .then(function(userData) {
+                    let words = userData.map((word) => {
+                        return {word_id: word._id, freq: 1}
+                    });
+                    User.create({
+                        accessToken: accessToken,
+                        googleId: profile.id,
+                        name: profile.displayName,
+                        score: 0,
+                        questions: words
+                    }, function(err, user) {
+                        console.log("user part 3")
+                        if (err) {
+                            return res.status(500).json({
+                                message: 'Internal Server Error'
+                            });
+                        }
+                        console.log("in CreateUser:", user);
+                        return done(null, user);
+                    });
+                })
+        } else {
+            return done(null, user);
+        }
+    });
+  }
+));
+
+
+passport.use(new BearerStrategy(
+  function(accessToken, done) {
+    console.log("token", accessToken)
+    User.findOne({ accessToken: accessToken }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      return done(null, user, { scope: 'read' });
+    });
   }
 ));
 
@@ -59,13 +106,11 @@ app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login', session: false }),
+  passport.authenticate('google', { failureRedirect: '/', session: false }),
   function(req, res) {
-    console.log(req);
-    // Successful authentication, redirect home.
-    res.redirect('/');
+    res.cookie('accessToken', req.user.accessToken, {expires: 0});
+    res.redirect('/#/game');
   });
-
 
 app.get('/dev', function(req, res) {
     Word.find(function(err, data) {
@@ -78,7 +123,8 @@ app.get('/dev', function(req, res) {
     });
 });
 
-app.get('/game', function(req, res) {
+app.get('/game', passport.authenticate('bearer', { session: false }),
+    function(req, res) {
     let user = {};
     User.find(function(err, userData) {
         if (err) {
@@ -91,7 +137,6 @@ app.get('/game', function(req, res) {
     .then(userData => {
         user.score = userData[0].score;
         let id = userData[0].questions[0].word_id;
-        console.log(id)
         Word.find({_id: id}, function(err, word) {
             if (err) {
                 return res.status(500).json({
@@ -104,8 +149,8 @@ app.get('/game', function(req, res) {
     })
 });
 
-app.post('/game', function(req, res) {
-    Word.find(function(err, userData) {
+const createUser = (profile) => {
+    return Word.find(function(err, userData) {
         if (err) {
             return res.status(500).json({
                 message: 'Internal Server Error'
@@ -119,21 +164,28 @@ app.post('/game', function(req, res) {
             return {word_id: word._id, freq: 1}
         });
         User.create({
+            googleId: profile.id,
+            name: profile.displayName,
             score: 0,
             questions: words
         }, function(err, user) {
+            console.log("user part 3")
             if (err) {
                 return res.status(500).json({
                     message: 'Internal Server Error'
                 });
             }
-            res.status(201).json(user);
+            console.log("in CreateUser:", user);
+            return user;
         });
-    });
-});
+    })
 
-app.put('/game', function(req, res) {
-    console.log('req', req.body.answer)
+};
+
+
+app.put('/game', passport.authenticate('bearer', { session: false }), 
+    function(req, res) {
+
     User.find(function(err, userData) {
         if (err) {
             return res.status(500).json({
