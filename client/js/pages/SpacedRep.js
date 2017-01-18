@@ -6,33 +6,35 @@ import QuestionCard from './pieces/questionscard';
 import InputCard from './pieces/input';
 import Counter from './pieces/counter';
 
-
 class SpacedRep extends React.Component {
 	constructor(props) {
 		super(props);
-	}
-	
+	}	
 	componentDidMount() {
 		 this.props.dispatch(actions.getCard());
 		 console.log('from spaced rep', this.props.question)
 	}
-
-
 	render() {
-		 console.log('from spaced render', this.props.question)
 		return (
+			
 			<div>
+				<Link to="/">
+				<img 
+				className="home" 
+				src="./assets/home.png"
+				/>
+				</Link>
 				<h2> 
-				Spaced 
+				REPTITION  
 				</h2>
 				{this.props.typewriter}
-				<Link to="/"><img className="home" src="./assets/home.png"/></Link>
 				<div className="container">	
-					<QuestionCard word={'Je suis'}/>
+					<QuestionCard word={ this.props.question.french }/>
 					<InputCard/>
 				</div>
 				<Counter count={23}/>
 			</div>
+	    
 	    )
 	}
 }   

@@ -6,7 +6,7 @@ const InputCard = (props) => {
 	let textInput = null;
 	return(
 		<div className="card">
-			<form onSubmit={ () => {props.dispatch(actions.engageTypeWriter(textInput.value)) }}>
+			<form onSubmit={ () => { props.dispatch(actions.sendAnswer(textInput.value)) } }>
 				<input
 				type="text"
 				ref={(input) => { textInput = input; }}

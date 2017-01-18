@@ -9,6 +9,23 @@ export const engageTypeWriter = num => ({
 	num
 })
 
+export const sendAnswer = res => dispatch => {
+	return fetch(game_url, {
+		method : "POST",
+		body : JSON.stringify({ res }),
+		headers : { "Content-Type" : "application/json" }
+	}).then(res => {
+		if (res.status >= 300) throw new Error(res.statusText);
+		return res;
+	}).then(res => {
+		dispatch(engageTypeWriter());
+	}).catch(er => {
+		console.error('reducer: ', er)
+	});
+};
+
+
+
 export const GET_CARD_SUCCESS = "GET_CARD_SUCCESS";
 export const getCardSuccess = question => ({
 	type: GET_CARD_SUCCESS,
