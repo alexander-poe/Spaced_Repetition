@@ -11,6 +11,8 @@ export const nextQuestion = question => ({
 	type: NEXT_QUESTION,
 	question
 });
+
+
 export const sendAnswer = answer => dispatch => {
 	console.log('action recieved data:' , answer)
 	return fetch(game_url, {
@@ -22,7 +24,7 @@ export const sendAnswer = answer => dispatch => {
 		return res;
 	}).then(res => res.json())
 	.then(res => {
-		console.log('next question:', res)
+		console.log('next question:', res);
 		dispatch(nextQuestion(res));
 	}).catch(er => {
 		console.error('reducer: ', er)

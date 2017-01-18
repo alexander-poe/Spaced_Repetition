@@ -4,6 +4,11 @@ input[type=text] {
 	color: black;
 }
 
+.goog {
+	display: flex;
+	justify-content: center;
+}
+
 .birdie {
         -moz-transform: scaleX(-1);
         -o-transform: scaleX(-1);
@@ -11,6 +16,11 @@ input[type=text] {
         transform: scaleX(-1);
         filter: FlipH;
         -ms-filter: "FlipH";
+}
+
+.counter-box {
+	border: 1px solid #dad9d9;
+	background-color: #132452;
 }
 
 .home {
@@ -36,7 +46,7 @@ input {
 }
 
 #app {
-  background-color: #52AFA2;
+  background-color: #132452;
   height: 500px;
   width: 60%;
   margin: 10px;
@@ -50,14 +60,14 @@ input {
 }
 
 .card {
-	background-color: #7DDAD1;
+	background-color: #CC051C;
 	width: 50%;
 
 }
 
 .container {
 	
-	background-color: #7DDAD1;
+	background-color: #CC051C;
 	height: 350px;
 	display: flex;
     flex-direction: row;
@@ -68,13 +78,15 @@ input {
 }
 
 .welcome {
-	background-color: #7DDAD1;
+	background-color: #132452;
 	margin: 7%;
-	height: 95px;
+	height: 131px;
 }
 
 .login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin: 7%;
-	height: 273px;
-	background-color: #7DDAD1;
+
 }

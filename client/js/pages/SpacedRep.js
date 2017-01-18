@@ -13,26 +13,25 @@ class SpacedRep extends React.Component {
 	componentDidMount() {
 		 this.props.dispatch(actions.getCard());
 		 console.log('from spaced rep', this.props.question)
+		 
 	}
 	render() {
+		const count = 0;
 		return (
 			
 			<div>
 				<Link to="/">
-				<img 
-				className="home" 
-				src="./assets/home.png"
-				/>
+					🇫🇷
 				</Link>
 				<h2> 
-				REPTITION  
+				instaFrench 🇫🇷
 				</h2>
 				{this.props.typewriter}
 				<div className="container">	
 					<QuestionCard word={ this.props.question.french }/>
-					<InputCard/>
+					<InputCard />
 				</div>
-				<Counter count={23}/>
+				<Counter count={count}/>
 			</div>
 	    
 	    )

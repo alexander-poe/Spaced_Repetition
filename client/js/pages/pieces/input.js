@@ -1,15 +1,22 @@
 import React from 'react';
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
-//dispatch.senddata?
+
+const answerCheck = (guess, answer) => {
+	if (guess === answer) return true;
+	else return false; 
+}
+
 const InputCard = (props) => {
 	let textInput = null;
+	console.log('inputcard:', props.question.english )
+	const currentAnswer = props.question.english;
 	return(
 		
 		<div className="card">
 			<form onSubmit={ (e) => { 
 				e.preventDefault();
-				props.dispatch(actions.sendAnswer(textInput.value)) 
+				props.dispatch(actions.sendAnswer(answerCheck(textInput.value, currentAnswer))) ;
 			}}>
 				<input
 				type="text"
@@ -20,4 +27,8 @@ const InputCard = (props) => {
 	
 	)
 }
-export default connect()(InputCard);	
+const mapStateToProps = (state, props) => ({
+	question: state.question,
+	word: state.question.french
+});
+export default connect(mapStateToProps)(InputCard);	

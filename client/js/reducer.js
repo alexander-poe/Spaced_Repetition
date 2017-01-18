@@ -24,10 +24,10 @@ const reducer = (state=initState, action) => {
 			}
 		case 'GET_CARD_SUCCESS' :
 				console.log('reducer', action.question.question)
-						return {
+			return {
 				...state, 
 				question: action.question.question
-			}; 
+			}
 		case actions.ENGAGE_TYPEWRITER :
 			return {
 				...state,
@@ -36,7 +36,8 @@ const reducer = (state=initState, action) => {
 		case actions.NEXT_QUESTION :
 			return { 
 				...state,
-				question: action.question.question}	
+				question: action.question.question
+			}	
 	}
 	return state;
 }	

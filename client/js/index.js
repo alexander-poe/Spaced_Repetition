@@ -7,7 +7,8 @@ import store from './store';
 import Welcome from './pages/Welcome';
 import SpacedRep from './pages/SpacedRep';
 
-console.log(`Client running in ${process.env.NODE_ENV} mode`); 
+
+console.log(`Client running in ${ process.env.NODE_ENV } mode`); 
 document.addEventListener('DOMContentLoaded', () => {
 	ReactDOM.render(
 		<Provider store={ store }>

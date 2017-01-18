@@ -17,8 +17,10 @@ class Welcome extends React.Component {
 	return (
 		<div>
 			<div className="welcome">
-				<h2> REPETITION </h2>
-				<img className="bird" src="./assets/bird.svg"/>
+				
+		
+				<h2> instaFrench 🇫🇷 </h2>
+				
 		
 			</div>
 			<div className="login">
@@ -26,7 +28,7 @@ class Welcome extends React.Component {
 				<Link 
 				to="/auth/google"
 				>
-				<div className="g-signin2" data-onsuccess="onSignIn"></div>
+				<div className="goog g-signin2" data-onsuccess="onSignIn"></div>
 				</Link> 
 			</div>
 		</div>

@@ -28,4 +28,10 @@ class QuestionCard extends React.Component {
 		)
 	}
 }
+
+const mapStateToProps = (state, props) => ({
+	typewriter: state.typewriter,
+	question: state.question
+});
+
 export default connect()(QuestionCard);
