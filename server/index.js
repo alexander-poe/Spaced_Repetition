@@ -10,6 +10,7 @@ import Word from './models/word';
 mongoose.Promise = global.Promise;
 
 dotenv.config();
+var BearerStrategy = require('passport-http-bearer').Strategy;
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 passport.use(new GoogleStrategy({
@@ -36,6 +37,7 @@ passport.use(new GoogleStrategy({
                         return {word_id: word._id, freq: 1}
                     });
                     User.create({
+                        accessToken: accessToken,
                         googleId: profile.id,
                         name: profile.displayName,
                         score: 0,
@@ -54,6 +56,18 @@ passport.use(new GoogleStrategy({
         } else {
             return done(null, user);
         }
+    });
+  }
+));
+
+
+passport.use(new BearerStrategy(
+  function(accessToken, done) {
+    console.log("token", accessToken)
+    User.findOne({ accessToken: accessToken }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      return done(null, user, { scope: 'read' });
     });
   }
 ));
@@ -92,23 +106,11 @@ app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/error', session: false }),
+  passport.authenticate('google', { failureRedirect: '/', session: false }),
   function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/hello_world');
+    res.cookie('accessToken', req.user.accessToken, {expires: 0});
+    res.redirect('/#/game');
   });
-
-import BearerStrategy from 'passport-http-bearer';
-
-passport.use(new BearerStrategy(
-  function(token, done) {
-    User.findOne({ token: token }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      return done(null, user, { scope: 'all' });
-    });
-  }
-));
 
 app.get('/dev', function(req, res) {
     Word.find(function(err, data) {
