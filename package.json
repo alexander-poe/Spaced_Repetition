@@ -81,11 +81,12 @@
     "webpack": "^1.13.1"
   },
   "dependencies": {
-    "dotenv": "^4.0.0",
     "body-parser": "^1.15.2",
+    "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "isomorphic-fetch": "^2.2.1",
     "mongoose": "^4.7.7",
+    "passport-google-oauth20": "^1.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.2",

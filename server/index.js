@@ -3,8 +3,26 @@ import 'babel-polyfill';
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import passport from 'passport';
 import User from './models/user';
+import Word from './models/word';
+
 mongoose.Promise = global.Promise;
+
+
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
 
 const algorithm = (questions, answer) => {
 
@@ -15,12 +33,13 @@ const algorithm = (questions, answer) => {
     }
 
     let ind = questions[0].freq
-    let start = questions.slice(1, ind);
-    let end = questions.slice(ind);
+    let start = questions.slice(1, ind + 1);
+    let end = questions.slice(ind + 1);
     let newQuestions = [...start, questions[0], ...end];
 
     return newQuestions;
 }
+
 
 const DATABASE_URL = process.env.DATABASE_URL;
 
@@ -35,6 +54,16 @@ app.use(express.static(process.env.CLIENT_PATH));
 
 app.use(bodyParser.json());
 
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+
+app.get('/', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/game');
+  });
+
 app.get('/game', function(req, res) {
     User.find(function(err, userData) {
         if (err) {
@@ -48,6 +77,15 @@ app.get('/game', function(req, res) {
 });
 
 app.post('/game', function(req, res) {
+    Word.find(function(err, userData) {
+        if (err) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+        let current = userData;
+        console.log(userData);
+    });
     User.create({
         score: 0,
         questions: [{english: "one", french: "un", freq: 1}, 
@@ -87,7 +125,7 @@ app.put('/game', function(req, res) {
         }
         let questions = algorithm(current.questions, req.body.answer);
         console.log(questions);
-        User.findOneAndUpdate({__v: 0}, {$set:{score:score, questions:questions}},function(err, user){
+        User.findOneAndUpdate({_id: current._id}, {$set:{score:score, questions:questions}},function(err, user){
             if (err) {
                 return res.status(500).json({
                     message: 'Internal Server Error'
