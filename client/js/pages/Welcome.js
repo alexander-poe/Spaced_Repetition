@@ -17,14 +17,9 @@ class Welcome extends React.Component {
 	return (
 		<div>
 			<div className="welcome">
-				
-		
 				<h2> instaFrench 🇫🇷 </h2>
-				
-		
 			</div>
 			<div className="login">
-				
 				<Link 
 				to="/auth/google"
 				>
