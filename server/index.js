@@ -1,5 +1,5 @@
-require('dotenv').config()
 import 'babel-polyfill';
+import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
@@ -9,17 +9,19 @@ import Word from './models/word';
 
 mongoose.Promise = global.Promise;
 
+dotenv.config();
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000"
+    callbackURL: "http://localhost:3000/auth/google/callback"
   },
-  function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return cb(err, user);
-    });
+  function(accessToken, refreshToken, profile, done) {
+    console.log(profile);
+    // User.findOrCreate({ googleId: profile.id }, function (err, user) {
+       return done(null, profile);
+    // });
   }
 ));
 
@@ -56,12 +58,25 @@ app.use(bodyParser.json());
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
-app.get('/', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login', session: false }),
   function(req, res) {
+    console.log(req);
     // Successful authentication, redirect home.
-    res.redirect('/game');
+    res.redirect('/');
   });
+
+
+app.get('/dev', function(req, res) {
+    Word.find(function(err, data) {
+        return data;
+    })
+    .then((words) => {
+        User.find(function(err, data) {
+            res.json({words: words, users: data});
+        });
+    });
+});
 
 app.get('/game', function(req, res) {
     let user = {};

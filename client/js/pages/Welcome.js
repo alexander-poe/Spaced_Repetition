@@ -17,6 +17,7 @@ class Welcome extends React.Component {
 	return (
 		<div>
 			<div className="welcome">
+
 				
 		
 				<h2> instaFrench 🇫🇷 </h2>
@@ -30,6 +31,7 @@ class Welcome extends React.Component {
 				>
 				<div className="goog g-signin2" data-onsuccess="onSignIn"></div>
 				</Link> 
+
 			</div>
 		</div>
 		)
