@@ -5,15 +5,14 @@ const Welcome = () => {
 	return (
 		<div>
 			<div className="welcome">
-				<h1> Hello </h1>
-		
+				<h1> Hello </h1>		
 			</div>
 			<div className="login">
-				<Link 
-				to="/game"
+				<a 
+				href="/auth/google"
 				>
-				Enter
-				</Link> 
+				Sign in with Google
+				</a> 
 			</div>
 		</div>
 		)
