@@ -19,6 +19,8 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:3000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
+    console.log(accessToken)
+    console.log(profile)
     User.findOne({googleId: profile.id}, function(err, user) {
         if (err) {
             return done(null, false);
@@ -108,7 +110,7 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/', session: false }),
   function(req, res) {
-    res.cookie('accessToken', req.user.accessToken, {expires: 0});
+    res.cookie('accessToken', req.user.accessToken, {expires: 0, httpOnly: false});
     res.redirect('/#/game');
   });
 
