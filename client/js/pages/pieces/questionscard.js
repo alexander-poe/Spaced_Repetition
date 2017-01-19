@@ -5,8 +5,7 @@ import { connect } from 'react-redux'
 
 class QuestionCard extends React.Component {
  constructor(props) {
- 	super(props);
- 	
+ 	super(props);	
  }
  render() {
 	return(
