@@ -18,7 +18,8 @@ export const sendAnswer = answer => dispatch => {
 	return fetch(game_url, {
 		method : "PUT",
 		body : JSON.stringify({ answer }),
-		headers : { "Content-Type" : "application/json" }
+		headers : { "Content-Type" : "application/json",
+		"Authorization": `Bearer ${cookie.load('accessToken')}` }
 	}).then(res => {
 		if (res.status >= 300) throw new Error(res.statusText);
 		return res;
@@ -35,7 +36,10 @@ export const getCardSuccess = question => ({
 	question
 });
 export const getCard = data => dispatch => {
-	return fetch(game_url)
+	return fetch(game_url, {
+		headers: {"Authorization": `Bearer ${cookie.load('accessToken')}` 
+		}
+	})
 		.then(res => {
 			return res.json()
 		}).then(res => {

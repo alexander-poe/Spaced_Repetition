@@ -13,6 +13,8 @@ dotenv.config();
 var BearerStrategy = require('passport-http-bearer').Strategy;
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
+
+//GOOGLE STRATEGY
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -56,8 +58,8 @@ passport.use(new GoogleStrategy({
         .then(words => {
             return words.map((word) => {
                 return {word_id: word._id, freq: 1}
-            })
-        })
+            });
+        });
     }
 }));
 
@@ -76,7 +78,7 @@ passport.use(new BearerStrategy(
         console.log("user not found");
         return done(null, false); 
         } else {
-            console.log("got it");
+        console.log("got it");
         return done(null, user, { scope: 'read' });
         }
     });
@@ -113,6 +115,7 @@ app.use(express.static(process.env.CLIENT_PATH));
 
 app.use(bodyParser.json());
 
+//GOOGLE USER LOGIN, SET TOKEN
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
@@ -123,16 +126,16 @@ app.get('/auth/google/callback',
     res.redirect('/#/game');
   });
 
-app.get('/dev', function(req, res) {
-    Word.find(function(err, data) {
-        return data;
-    })
-    .then((words) => {
-        User.find(function(err, data) {
-            res.json({words: words, users: data});
-        });
-    });
-});
+// app.get('/dev', function(req, res) {
+//     Word.find(function(err, data) {
+//         return data;
+//     })
+//     .then((words) => {
+//         User.find(function(err, data) {
+//             res.json({words: words, users: data});
+//         });
+//     });
+// });
 
 app.get('/game', passport.authenticate('bearer', { session: false }),
     function(req, res) {
