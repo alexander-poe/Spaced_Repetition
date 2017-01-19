@@ -26,9 +26,8 @@ input {
 	height:344px;
 }
 
-.goog {
-	display: flex;
-	justify-content: center;
+.logingoog {
+	width: 50%;
 }
 
 .counter-box {
@@ -41,7 +40,7 @@ input {
 }
 
 .holder {
-		-moz-box-shadow: 0 0 15px white;
+	-moz-box-shadow: 0 0 15px white;
     -webkit-box-shadow: 0 0 15px white;
     box-shadow: 0 0 15px white;
 }
@@ -98,5 +97,13 @@ input {
 	justify-content: center;
 	align-items: center;
 	margin: 7%;
+
+}
+
+@media screen and (max-width: 800px) {
+	#app {
+		width: 100%;
+		margin: 1%;
+	}
 
 }
