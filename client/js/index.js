@@ -7,16 +7,17 @@ import store from './store';
 import Welcome from './pages/Welcome';
 import SpacedRep from './pages/SpacedRep';
 
-
 console.log(`Client running in ${ process.env.NODE_ENV } mode`); 
 document.addEventListener('DOMContentLoaded', () => {
 	ReactDOM.render(
+		
 		<Provider store={ store }>
 			<Router history={ hashHistory }>
 				<Route path="/" component={ Welcome }></Route>
 				<Route path="/game" component={ SpacedRep }></Route>
 			</Router>
 		</Provider>, document.getElementById('app')	
+	
 	)
 });
 

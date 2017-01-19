@@ -12,35 +12,35 @@ class SpacedRep extends React.Component {
 	}	
 	componentDidMount() {
 		 this.props.dispatch(actions.getCard());
-		 console.log('from spaced rep', this.props.question)
-		 
+		 	 
 	}
 	render() {
 		const count = 0;
 		return (
-			
-			<div>
-				<Link to="/">
-					🇫🇷
-				</Link>
-				<h2> 
-				instaFrench 
-				</h2>
-				{this.props.typewriter}
-				<div className="container">	
-					<QuestionCard word={ this.props.question.french }/>
-					<InputCard />
+			<div className="outerlayer">
+				<div className="holder">
+					<Link to="/">
+						🇫🇷
+					</Link>
+					<h2> 
+						instaFrench 
+					</h2>
+					{this.props.typewriter}
+					<div className="container">	
+						<QuestionCard word={ this.props.question.french }/>
+						<InputCard />
+					</div>
+					<Counter count={ this.props.counter }/>
 				</div>
-				<Counter count={count}/>
-			</div>
-	    
+	    	</div>
 	    )
 	}
 }   
 
 const mapStateToProps = (state, props) => ({
 	typewriter: state.typewriter,
-	question: state.question
+	question: state.question,
+	counter: state.counter
 });
 
 export default connect(mapStateToProps)(SpacedRep);
