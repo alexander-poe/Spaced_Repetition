@@ -17,22 +17,22 @@ class SpacedRep extends React.Component {
 	render() {
 		const count = 0;
 		return (
-			
-			<div className="holder">
-				<Link to="/">
-					🇫🇷
-				</Link>
-				<h2> 
-					instaFrench 
-				</h2>
-				{this.props.typewriter}
-				<div className="container">	
-					<QuestionCard word={ this.props.question.french }/>
-					<InputCard />
+			<div className="outerlayer">
+				<div className="holder">
+					<Link to="/">
+						🇫🇷
+					</Link>
+					<h2> 
+						instaFrench 
+					</h2>
+					{this.props.typewriter}
+					<div className="container">	
+						<QuestionCard word={ this.props.question.french }/>
+						<InputCard />
+					</div>
+					<Counter count={ this.props.counter }/>
 				</div>
-				<Counter count={ this.props.counter }/>
-			</div>
-	    
+	    	</div>
 	    )
 	}
 }   
