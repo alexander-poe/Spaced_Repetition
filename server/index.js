@@ -19,45 +19,47 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:3000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOne({googleId: profile.id}, function(err, user) {
-        if (err) {
-            return done(null, false);
-        } else if(!user) {
-                Word.find(function(err, userData) {
-                    if (err) {
-                        return res.status(500).json({
-                            message: 'Internal Server Error'
-                        });
-                    }
-                    let current = userData;
-                    return userData;
-                })
-                .then(function(userData) {
-                    let words = userData.map((word) => {
-                        return {word_id: word._id, freq: 1}
-                    });
-                    User.create({
-                        accessToken: accessToken,
-                        googleId: profile.id,
-                        name: profile.displayName,
-                        score: 0,
-                        questions: words
-                    }, function(err, user) {
-                        console.log("user part 3")
-                        if (err) {
-                            return res.status(500).json({
-                                message: 'Internal Server Error'
-                            });
-                        }
-                        return done(null, user);
-                    });
-                })
-        } else {
-            return done(null, user);
+    User.findOneAndUpdate({googleId: profile.id}, 
+        {$set: {
+            name: profile.displayName,
+            accessToken: accessToken,
+            score: 0,
+            googleId: profile.id,
+            questions: getArrayOfQuestions(profile.id)
         }
+    },
+    {upsert: true, 'new': true})
+    .then((user) => {
+        done(null, user);
+    }).catch(() => {
+        console.log("catch error");
     });
-  }
-));
+
+    function getArrayOfQuestions(id) {
+        let questions = [];
+        User.findOne({googleId: id}, (err, user) => {
+            if(err) {
+                console.log("err: ", err);
+                return questions;
+            } else if (!user) {
+                return questions = createArrayOfQuestions();
+            } else {
+                return questions = user.questions;
+            }
+        });
+        return questions;
+    }
+
+    function createArrayOfQuestions() {
+        let questions = [];
+        Word.find()
+        .then(words => {
+            return words.map((word) => {
+                return {word_id: word._id, freq: 1}
+            })
+        })
+    }
+}));
 
 
 passport.use(new BearerStrategy(
