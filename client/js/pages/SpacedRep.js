@@ -12,8 +12,7 @@ class SpacedRep extends React.Component {
 	}	
 	componentDidMount() {
 		 this.props.dispatch(actions.getCard());
-		 console.log('from spaced rep', this.props.question)
-		 
+		 	 
 	}
 	render() {
 		const count = 0;
@@ -31,7 +30,7 @@ class SpacedRep extends React.Component {
 					<QuestionCard word={ this.props.question.french }/>
 					<InputCard />
 				</div>
-				<Counter count={count}/>
+				<Counter count={ this.props.counter }/>
 			</div>
 	    
 	    )
@@ -40,7 +39,8 @@ class SpacedRep extends React.Component {
 
 const mapStateToProps = (state, props) => ({
 	typewriter: state.typewriter,
-	question: state.question
+	question: state.question,
+	counter: state.counter
 });
 
 export default connect(mapStateToProps)(SpacedRep);

@@ -1,6 +1,15 @@
 const game_url = "/game/";
 export const INCREMENT = 'INCREMENT';
+export const incrementCount = counter => ({
+	type: INCREMENT,
+	counter
+})
 export const DECREMENT = 'DECREMENT';
+export const decrementCount = counter => ({
+	type: DECREMENT,
+	counter
+})
+
 export const ENGAGE_TYPEWRITER = 'ENGAGE_TYPEWRITER';
 export const engageTypeWriter = num => ({
 	type: ENGAGE_TYPEWRITER,
@@ -11,8 +20,6 @@ export const nextQuestion = question => ({
 	type: NEXT_QUESTION,
 	question
 });
-
-
 export const sendAnswer = answer => dispatch => {
 	console.log('action recieved data:' , answer)
 	return fetch(game_url, {

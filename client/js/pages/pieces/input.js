@@ -10,11 +10,14 @@ const answerCheck = (guess, answer) => {
 const InputCard = (props) => {
 	let textInput = null;
 	const currentAnswer = props.question.english;
+	console.log('IC:', props.counter)
 	return(
 		
 		<div className="card">
 			<form onSubmit={ (e) => { 
 				e.preventDefault();
+				if (currentAnswer === textInput.value) props.dispatch(actions.incrementCount(props.counter));
+				if (currentAnswer !== textInput.value) props.dispatch(actions.decrementCount(props.counter));
 				props.dispatch(actions.sendAnswer(answerCheck(textInput.value, currentAnswer))) ;
 			}}>
 				<input
@@ -28,6 +31,7 @@ const InputCard = (props) => {
 }
 const mapStateToProps = (state, props) => ({
 	question: state.question,
-	word: state.question.french
+	word: state.question.french,
+	counter: state.counter
 });
 export default connect(mapStateToProps)(InputCard);	
