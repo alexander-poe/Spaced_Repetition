@@ -19,12 +19,12 @@ class SpacedRep extends React.Component {
 		const count = 0;
 		return (
 			
-			<div>
+			<div className="holder">
 				<Link to="/">
 					🇫🇷
 				</Link>
 				<h2> 
-				instaFrench 
+					instaFrench 
 				</h2>
 				{this.props.typewriter}
 				<div className="container">	
