@@ -1,4 +1,6 @@
+import cookie from 'react-cookie';
 const game_url = "/game/";
+
 export const INCREMENT = 'INCREMENT';
 export const incrementCount = counter => ({
 	type: INCREMENT,
@@ -9,7 +11,6 @@ export const decrementCount = counter => ({
 	type: DECREMENT,
 	counter
 })
-
 export const ENGAGE_TYPEWRITER = 'ENGAGE_TYPEWRITER';
 export const engageTypeWriter = num => ({
 	type: ENGAGE_TYPEWRITER,
@@ -25,7 +26,8 @@ export const sendAnswer = answer => dispatch => {
 	return fetch(game_url, {
 		method : "PUT",
 		body : JSON.stringify({ answer }),
-		headers : { "Content-Type" : "application/json" }
+		headers : { "Content-Type" : "application/json",
+		"Authorization": `Bearer ${cookie.load('accessToken')}` }
 	}).then(res => {
 		if (res.status >= 300) throw new Error(res.statusText);
 		return res;
@@ -42,7 +44,10 @@ export const getCardSuccess = question => ({
 	question
 });
 export const getCard = data => dispatch => {
-	return fetch(game_url)
+	return fetch(game_url, {
+		headers: {"Authorization": `Bearer ${cookie.load('accessToken')}` 
+		}
+	})
 		.then(res => {
 			return res.json()
 		}).then(res => {
