@@ -1,3 +1,4 @@
+import cookie from 'react-cookie';
 const game_url = "/game/";
 export const INCREMENT = 'INCREMENT';
 export const DECREMENT = 'DECREMENT';
@@ -11,7 +12,6 @@ export const nextQuestion = question => ({
 	type: NEXT_QUESTION,
 	question
 });
-
 
 export const sendAnswer = answer => dispatch => {
 	console.log('action recieved data:' , answer)

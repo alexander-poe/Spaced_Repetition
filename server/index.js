@@ -51,7 +51,6 @@ passport.use(new GoogleStrategy({
         });
         return questions;
     }
-
     function createArrayOfQuestions() {
         let questions = [];
         Word.find()
@@ -64,23 +63,23 @@ passport.use(new GoogleStrategy({
 }));
 
 
-passport.use(new BearerStrategy(
-  function(accessToken, done) {
-    console.log("bearer");
-    console.log("token", accessToken);
-    User.findOne({ accessToken: accessToken }, function (err, user) {
-        console.log(user);
-      if (err) { 
-        console.log("error");
-        return done(err); 
-        }
-      else if (!user) { 
-        console.log("user not found");
-        return done(null, false); 
-        } else {
-        console.log("got it");
-        return done(null, user, { scope: 'read' });
-        }
+passport.use(
+    new BearerStrategy(
+        function(accessToken, done) {
+            User.findOne({ accessToken: accessToken }, 
+                function (err, user) {
+                console.log(user);
+                  if (err) { 
+                    console.log("error");
+                    return done(err); 
+                    }
+                  else if (!user) { 
+                    console.log("user not found");
+                    return done(null, false); 
+                    } else {
+                    console.log("got it");
+                    return done(null, user, { scope: 'read' });
+                    }
     });
   }
 ));
