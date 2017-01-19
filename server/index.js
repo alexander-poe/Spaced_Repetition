@@ -149,39 +149,6 @@ app.get('/game', passport.authenticate('bearer', { session: false }),
     })
 });
 
-const createUser = (profile) => {
-    return Word.find(function(err, userData) {
-        if (err) {
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        }
-        let current = userData;
-        return userData;
-    })
-    .then(function(userData) {
-        let words = userData.map((word) => {
-            return {word_id: word._id, freq: 1}
-        });
-        User.create({
-            googleId: profile.id,
-            name: profile.displayName,
-            score: 0,
-            questions: words
-        }, function(err, user) {
-            console.log("user part 3")
-            if (err) {
-                return res.status(500).json({
-                    message: 'Internal Server Error'
-                });
-            }
-            console.log("in CreateUser:", user);
-            return user;
-        });
-    })
-
-};
-
 app.put('/game', passport.authenticate('bearer', { session: false }), 
     function(req, res) {
     User.find(function(err, userData) {
