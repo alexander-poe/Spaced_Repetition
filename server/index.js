@@ -19,8 +19,6 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:3000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log(accessToken)
-    console.log(profile)
     User.findOne({googleId: profile.id}, function(err, user) {
         if (err) {
             return done(null, false);
@@ -51,7 +49,6 @@ passport.use(new GoogleStrategy({
                                 message: 'Internal Server Error'
                             });
                         }
-                        console.log("in CreateUser:", user);
                         return done(null, user);
                     });
                 })
@@ -65,11 +62,21 @@ passport.use(new GoogleStrategy({
 
 passport.use(new BearerStrategy(
   function(accessToken, done) {
-    console.log("token", accessToken)
+    console.log("bearer");
+    console.log("token", accessToken);
     User.findOne({ accessToken: accessToken }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      return done(null, user, { scope: 'read' });
+        console.log(user);
+      if (err) { 
+        console.log("error");
+        return done(err); 
+        }
+      else if (!user) { 
+        console.log("user not found");
+        return done(null, false); 
+        } else {
+            console.log("got it");
+        return done(null, user, { scope: 'read' });
+        }
     });
   }
 ));
@@ -110,7 +117,7 @@ app.get('/auth/google',
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/', session: false }),
   function(req, res) {
-    res.cookie('accessToken', req.user.accessToken, {expires: 0, httpOnly: false});
+    res.cookie('accessToken', req.user.accessToken, {expires: 0});
     res.redirect('/#/game');
   });
 
@@ -127,6 +134,7 @@ app.get('/dev', function(req, res) {
 
 app.get('/game', passport.authenticate('bearer', { session: false }),
     function(req, res) {
+        console.log("bearer ran");
     let user = {};
     User.find(function(err, userData) {
         if (err) {
