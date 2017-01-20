@@ -121,17 +121,6 @@ app.get('/auth/google/callback',
     res.redirect('/#/game');
   });
 
-// app.get('/dev', function(req, res) {
-//     Word.find(function(err, data) {
-//         return data;
-//     })
-//     .then((words) => {
-//         User.find(function(err, data) {
-//             res.json({words: words, users: data});
-//         });
-//     });
-// });
-
 app.get('/game', passport.authenticate('bearer', { session: false }),
     function(req, res) {
     let user = {};
