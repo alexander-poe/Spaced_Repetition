@@ -43,9 +43,6 @@ class SpacedRep extends React.Component {
 					count={ this.props.counter }
 					/>
 				</div>
-<<<<<<< HEAD
-				
-=======
 					<label 
 					className="switch"
 					>
@@ -61,7 +58,6 @@ class SpacedRep extends React.Component {
   						>
   						</div>
 					</label>
->>>>>>> 7d944f3a44687bd2cd27b414b719ecad78533b8a
 	    	</div>
 	    
 	    )
