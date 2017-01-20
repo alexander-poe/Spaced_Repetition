@@ -18,7 +18,7 @@ var GoogleStrategy = require('passport-google-oauth20').Strategy;
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://instafrench.herokuapp.com/auth/google/callback"
+    callbackURL: "https://stark-river-80170.herokuapp.com/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
     getArrayOfQuestions(profile.id)
