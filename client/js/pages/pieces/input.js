@@ -9,7 +9,7 @@ const answerCheck = (guess, answer) => {
 
 const InputCard = (props) => {
 	var textInput = '';
-	const currentAnswer = props.question.english ? props.question.french: props.question.english;
+	const currentAnswer = props.answer
 	console.log(currentAnswer)
 	const success = ['Good Job!', 'Bien!', 'Génial', 'Win!']
 	const failure = ['Almost!', 'ça va', 'Wrong!', 'Try Again']
@@ -46,6 +46,7 @@ const InputCard = (props) => {
 	)
 }
 const mapStateToProps = (state, props) => ({
+	answer: state.answer,
 	question: state.question,
 	word: state.question.french,
 	counter: state.counter,
