@@ -49,37 +49,9 @@ describe('actions', () => {
     actions.getCardSuccess(question).type.should.equal(expectedAction.type);
         actions.getCardSuccess(question).question.should.equal(expectedAction.question)
   });
-
-
 });
 
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
-import nock from 'nock'
 
-const middlewares = [ thunk ]
-const mockStore = configureMockStore(middlewares)
 
-describe('async actions', () => {
-  afterEach(() => {
-    nock.cleanAll()
-  })
-
-  it('creates GET_CARD_SUCCESS when fetching cards has been done', () => {
-    nock('http://localhost:3000/')
-      .get('/games')
-      .reply(200, { body: { score: 1, question: {english: 'one', french: 'un' }}})
-
-    const expectedAction = { 
-    	type: 'GET_CARD_SUCCESS', 
-    	body: { score: 1, question: {english: 'one', french: 'un' }} }
-    const store = mockStore({score: 1})
-
-    return store.dispatch(actions.getCard('x'))
-      .then(() => { // return of async actions
-        (store.getActions()).should.equal(expectedAction)
-      })
-  })
-})
 
 

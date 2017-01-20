@@ -19,7 +19,7 @@ describe('counter piece', () => {
         child.type.should.equal('span');
         
         const grandchild = child.props.children;
-        grandchild.type.should.equal('h3');
+        grandchild.type.should.equal('h2');
         grandchild.props.children.should.equal(count);
     });
 })
