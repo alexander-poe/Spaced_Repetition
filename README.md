@@ -10,11 +10,11 @@ A way to learn french through spaced repetition.
 
 ### Homepage/Login
 
-![full page](/client/assets/IMAGE.png)
+![full page](/client/assets/image1.png)
 
 ### Spaced Repetition Page
 
-![main page](/client/assets/IMAGE.png)
+![main page](/client/assets/image2.png)
 
 ## Tech Stack
 
