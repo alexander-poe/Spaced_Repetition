@@ -119,7 +119,8 @@ input {
 		margin: 0 auto;
 	}
 	input {
-		width: 96%;
+		color: red;
+		width: 78%;
 		height:344px;
 	}
 	.cardText {
@@ -136,19 +137,6 @@ input {
 	}
 }
 
-@media screen and (max-width: 1050px) {
-	input {
-		width: 98%;
-		height:344px;
-	}
-}
-
-@media screen and (max-width: 1600px) {
-	input {
-		width: 98%;
-		height:344px;
-	}
-}
 
 
 
