@@ -25,9 +25,7 @@ class Welcome extends React.Component {
 					className="paris" 
 					src='./assets/paris.png'
 					/>
-				
 			</div>
-			
 			)
 	}
 }
