@@ -1,3 +1,5 @@
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 import cookie from 'react-cookie';
 const game_url = "/game/";
 

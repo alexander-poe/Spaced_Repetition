@@ -8,14 +8,11 @@ const answerCheck = (guess, answer) => {
 }
 
 const InputCard = (props) => {
-	var textInput = null;
-	const currentAnswer = props.question.english;
+	var textInput = '';
+	const currentAnswer = props.question.english ? props.question.french: props.question.english;
+	console.log(currentAnswer)
 	const success = ['Good Job!', 'Bien!', 'Génial', 'Win!']
 	const failure = ['Almost!', 'ça va', 'Wrong!', 'Try Again']
-	const clear = () => {
-		alert('et')
-		textInput.value = '';
-	}
 	return(
 		
 		<div className="card">
@@ -29,15 +26,19 @@ const InputCard = (props) => {
 				const randomizer = Math.floor(Math.random() * 3);
 				if (status) {
 					textInput.value = success[randomizer];
+					console.log(textInput.value)
 				}
 				if (!status) {
 					textInput.value = failure[randomizer];
 				}
-				setTimeout(clear, 1000);
+				
+				
+				
 			}}>
 				<input
 				type="text"
 				ref={(input) => { textInput = input; }}
+				name="textInput"
 				/>
 			</form>	
 		</div>	
