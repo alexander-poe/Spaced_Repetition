@@ -14,9 +14,15 @@ class SpacedRep extends React.Component {
 		 this.props.dispatch(actions.getCard());
 		 	 
 	}
+	switch() {
+	    var language = this.props.question.french ? 
+			this.props.question.enlgish :
+				this.props.question.french;
+	}
 	render() {
-		const count = 0;
+		var language = this.props.question.english;
 		return (
+		
 			<div className="outerlayer">
 				<div className="holder">
 					<Link to="/">
@@ -25,22 +31,41 @@ class SpacedRep extends React.Component {
 					<h2> 
 						instaFrench 
 					</h2>
-					{this.props.typewriter}
-					<div className="container">	
-						<QuestionCard word={ this.props.question.french }/>
+					<div 
+					className="container"
+					>	
+						<QuestionCard 
+						word={ language }
+						/>
 						<InputCard />
 					</div>
-					<Counter count={ this.props.counter }/>
+					<Counter 
+					count={ this.props.counter }
+					/>
 				</div>
+					<label 
+					className="switch"
+					>
+  						<input 
+  						onClick={ (e) => {
+  							alert('hey')
+  							
+  						} }
+  						type="checkbox"
+  						/>
+  						<div 
+  						className="slider round"
+  						>
+  						</div>
+					</label>
 	    	</div>
+	    
 	    )
 	}
 }   
-
 const mapStateToProps = (state, props) => ({
 	typewriter: state.typewriter,
 	question: state.question,
 	counter: state.counter
 });
-
 export default connect(mapStateToProps)(SpacedRep);
