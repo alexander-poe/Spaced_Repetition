@@ -110,12 +110,17 @@ input {
 
 @media screen and (max-width: 800px) {
 	#app {
-		width: 100%;
+		width: 90%;
 		margin: 1%;
 	}
-
-
+	.paris {
+		width: 90%;
+		display: block;
+		margin: 0 auto;
+	}
 }
+
+
 
 
 .switch {

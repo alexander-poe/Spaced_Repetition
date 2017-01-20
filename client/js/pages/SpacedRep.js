@@ -16,7 +16,7 @@ class SpacedRep extends React.Component {
 	}
 	switch() {
 	    var language = this.props.question.french ? 
-			this.props.question.enlgish :
+			this.props.question.english :
 				this.props.question.french;
 	}
 	render() {
