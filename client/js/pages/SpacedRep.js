@@ -32,6 +32,7 @@ class SpacedRep extends React.Component {
 					</div>
 					<Counter count={ this.props.counter }/>
 				</div>
+				
 	    	</div>
 	    )
 	}
