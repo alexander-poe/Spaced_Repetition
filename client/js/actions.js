@@ -22,9 +22,9 @@ export const nextQuestion = question => ({
 	question
 });
 
-export const switchlanguage = lang => ({
+export const switchlanguage = language => ({
 	type: 'SWITCH_LANGUAGE',
-	lang 
+	language 
 })
 
 export const sendAnswer = answer => dispatch => {

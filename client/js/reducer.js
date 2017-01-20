@@ -8,7 +8,8 @@ const initState = {
 		freq: 1,
 	}, 
 	score: 2,
-	counter: 1
+	counter: 1,
+	language: 'french'
 };
 
 const reducer = (state=initState, action) => {
@@ -42,6 +43,7 @@ const reducer = (state=initState, action) => {
 				question: action.question.question
 			}
 		case 'SWITCH_LANGUAGE' :
+			const language = state.language;
 			return {
 				...state, 
 				language: language == "english" ? "french" : "english" 

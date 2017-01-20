@@ -34,6 +34,7 @@ const InputCard = (props) => {
 const mapStateToProps = (state, props) => ({
 	question: state.question,
 	word: state.question.french,
-	counter: state.counter
+	counter: state.counter,
+	language: state.language
 });
 export default connect(mapStateToProps)(InputCard);	

@@ -15,17 +15,6 @@ body {
 
 }
 
-input[type=text] {
-	text-align: center;
-	font-size: 2.5em;
-	color: black;
-}
-
-input {
-	width: 98.2%;
-	height:344px;
-}
-
 .logingoog {
 	width: 50%;
 }
@@ -34,15 +23,6 @@ input {
 	background-color: #132452;
 	border: 1px solid black;
 	color: white;
-	-moz-box-shadow: 0 0 15px white;
-    -webkit-box-shadow: 0 0 15px white;
-    box-shadow: 0 0 15px white;
-}
-
-.holder {
-	-moz-box-shadow: 0 0 15px white;
-    -webkit-box-shadow: 0 0 15px white;
-    box-shadow: 0 0 15px white;
 }
 
 .home {
@@ -72,7 +52,6 @@ input {
 }
 
 .container {
-	
 	background-color: #CC051C;
 	height: 350px;
 	display: flex;
@@ -81,9 +60,6 @@ input {
     align-items: center;
 	margin: auto;
 	width: 100%;
-	-moz-box-shadow: 0 0 15px white;
-    -webkit-box-shadow: 0 0 15px white;
-    box-shadow: 0 0 15px white;
 }
 
 .welcome {
@@ -98,6 +74,17 @@ input {
 	align-items: center;
 	margin: 7%;
 
+}
+
+input[type=text] {
+	text-align: center;
+	font-size: 2.5em;
+	color: black;
+}
+
+input {
+	width: 98.2%;
+	height:344px;
 }
 
 .paris {
@@ -118,7 +105,27 @@ input {
 		display: block;
 		margin: 0 auto;
 	}
+	input {
+		width: 96%;
+		height:344px;
+	}
 }
+
+@media screen and (max-width: 1050px) {
+	input {
+		width: 98%;
+		height:344px;
+	}
+}
+
+@media screen and (max-width: 1600px) {
+	input {
+		width: 98%;
+		height:344px;
+	}
+}
+
+
 
 
 

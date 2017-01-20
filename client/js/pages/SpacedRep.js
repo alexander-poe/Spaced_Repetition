@@ -14,11 +14,6 @@ class SpacedRep extends React.Component {
 		 this.props.dispatch(actions.getCard());
 		 	 
 	}
-	switch() {
-	    var language = this.props.question.french ? 
-			this.props.question.english :
-				this.props.question.french;
-	}
 	render() {
 		
 
@@ -35,7 +30,7 @@ class SpacedRep extends React.Component {
 					className="container"
 					>	
 						<QuestionCard 
-						word={ this.props.question.french } 
+						word={ this.props.question[this.props.language] } 
 						/>
 						<InputCard />
 					</div>
