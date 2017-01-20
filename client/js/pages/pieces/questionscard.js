@@ -12,10 +12,10 @@ class QuestionCard extends React.Component {
 
 		<div 
 		className="card">	
-					<h1 
-					className="centered">		
+					<p 
+					className="centered cardText">		
 						{ this.props.word }
-					</h1>			
+					</p>			
 		</div>	
 		
 		)
