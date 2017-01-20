@@ -12,7 +12,10 @@ class Welcome extends React.Component {
 				<h2> instaFrench 🇫🇷 </h2>
 			</div>
 			<div className="login">
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7d944f3a44687bd2cd27b414b719ecad78533b8a
 				<a href="/auth/google"><img className="logingoog" src='./assets/goog.png'/></a>
 			</div>
 		</div>
