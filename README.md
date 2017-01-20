@@ -1,4 +1,4 @@
-! [InstaFrench]
+# InstaFrench
 
 Link: [enter link here]
 
