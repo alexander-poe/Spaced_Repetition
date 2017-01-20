@@ -8,9 +8,14 @@ const answerCheck = (guess, answer) => {
 }
 
 const InputCard = (props) => {
-	let textInput = null;
+	var textInput = null;
 	const currentAnswer = props.question.english;
-	console.log('IC:', props.counter)
+	const success = ['Good Job!', 'Bien!', 'Génial', 'Win!']
+	const failure = ['Almost!', 'ça va', 'Wrong!', 'Try Again']
+	const clear = () => {
+		alert('et')
+		textInput.value = '';
+	}
 	return(
 		
 		<div className="card">
@@ -20,7 +25,15 @@ const InputCard = (props) => {
 				props.dispatch(actions.incrementCount(props.counter)) :
 				props.dispatch(actions.decrementCount(props.counter));
 				props.dispatch(actions.sendAnswer(answerCheck(textInput.value, currentAnswer)));
-				textInput.value = '';
+				const status = answerCheck(textInput.value, currentAnswer);
+				const randomizer = Math.floor(Math.random() * 3);
+				if (status) {
+					textInput.value = success[randomizer];
+				}
+				if (!status) {
+					textInput.value = failure[randomizer];
+				}
+				setTimeout(clear, 1000);
 			}}>
 				<input
 				type="text"
