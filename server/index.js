@@ -84,12 +84,11 @@ passport.use(
 
 const algorithm = (questions, answer) => {
 
-    if (answer === "true") {
+    if (answer === true) {
         questions[0].freq *= 2;
     } else {
         questions[0].freq = 1;
     }
-
     let ind = questions[0].freq
     let start = questions.slice(1, ind + 1);
     let end = questions.slice(ind + 1);
