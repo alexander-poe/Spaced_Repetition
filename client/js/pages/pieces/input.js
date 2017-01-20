@@ -20,6 +20,7 @@ const InputCard = (props) => {
 				props.dispatch(actions.incrementCount(props.counter)) :
 				props.dispatch(actions.decrementCount(props.counter));
 				props.dispatch(actions.sendAnswer(answerCheck(textInput.value, currentAnswer)));
+				textInput.value = '';
 			}}>
 				<input
 				type="text"
