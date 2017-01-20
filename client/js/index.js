@@ -7,6 +7,7 @@ import store from './store';
 import Welcome from './pages/Welcome';
 import SpacedRep from './pages/SpacedRep';
 
+
 document.addEventListener('DOMContentLoaded', () => {
 	ReactDOM.render(
 		

@@ -7,6 +7,7 @@ const initState = {
 		french: "", 
 		freq: 1,
 	}, 
+	answer: "",
 	score: 2,
 	counter: 1,
 	language: 'french'
@@ -27,9 +28,17 @@ const reducer = (state=initState, action) => {
 			}
 		case 'GET_CARD_SUCCESS' :
 			console.log(action.question.question)
+			var answer;
+			if(state.language === "french") {
+				answer = action.question.question.english
+			} else {
+				answer = action.question.question.french
+			}
+			console.log("answer", answer)
 			return {
 				...state, 
-				question: action.question.question
+				question: action.question.question,
+				answer: answer
 			}
 		case 'ENGAGE_TYPEWRITER' :
 			return {
@@ -38,15 +47,25 @@ const reducer = (state=initState, action) => {
 			}
 		case 'NEXT_QUESTION' :
 			console.log('this is in the reducer', action.question)
+			var answer;
+			if(state.language === "french") {
+				answer = action.question.question.english
+			} else {
+				answer = action.question.question.french
+			}
+			console.log("answer", answer);
 			return { 
 				...state,
-				question: action.question.question
+				question: action.question.question,
+				answer: answer
 			}
 		case 'SWITCH_LANGUAGE' :
 			const language = state.language;
+			let answer = (language == "english") ? state.question.english : state.question.french
 			return {
 				...state, 
-				language: language == "english" ? "french" : "english" 
+				language: language == "english" ? "french" : "english",
+				answer: answer 
 			}		
 	}
 	return state;
