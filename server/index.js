@@ -21,46 +21,46 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:3000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOneAndUpdate({googleId: profile.id}, 
-        {$set: {
-            name: profile.displayName,
-            accessToken: accessToken,
-            score: 0,
-            googleId: profile.id,
-            questions: getArrayOfQuestions(profile.id)
-        }
-    },
-    {upsert: true, 'new': true})
+    getArrayOfQuestions(profile.id)
+    .then(questions => {
+        return User.findOneAndUpdate({googleId: profile.id}, 
+            {$set: {
+                name: profile.displayName,
+                accessToken: accessToken,
+                score: 0,
+                googleId: profile.id,
+                questions: questions
+            }
+        },
+        {upsert: true, 'new': true})
+    })
     .then((user) => {
         done(null, user);
-    }).catch(() => {
-        console.log("catch error");
+    })
+    .catch((err) => {
+        done(err);
     });
+}));
 
     function getArrayOfQuestions(id) {
-        let questions = [];
-        User.findOne({googleId: id}, (err, user) => {
-            if(err) {
-                console.log("err: ", err);
-                return questions;
-            } else if (!user) {
-                return questions = createArrayOfQuestions();
+        return User.findOne({googleId: id})
+        .then((user) => {
+            if (!user) {
+                return createArrayOfQuestions();
             } else {
-                return questions = user.questions;
+                return user.questions;
             }
-        });
-        return questions;
+        })
     }
+
     function createArrayOfQuestions() {
-        let questions = [];
-        Word.find()
+        return Word.find()
         .then(words => {
             return words.map((word) => {
                 return {word_id: word._id, freq: 1}
             });
         });
     }
-}));
 
 
 passport.use(
@@ -68,7 +68,6 @@ passport.use(
         function(accessToken, done) {
             User.findOne({ accessToken: accessToken }, 
                 function (err, user) {
-                console.log(user);
                   if (err) { 
                     console.log("error");
                     return done(err); 
@@ -77,7 +76,6 @@ passport.use(
                     console.log("user not found");
                     return done(null, false); 
                     } else {
-                    console.log("got it");
                     return done(null, user, { scope: 'read' });
                     }
     });
@@ -96,7 +94,6 @@ const algorithm = (questions, answer) => {
     let start = questions.slice(1, ind + 1);
     let end = questions.slice(ind + 1);
     let newQuestions = [...start, questions[0], ...end];
-
     return newQuestions;
 }
 
@@ -138,16 +135,8 @@ app.get('/auth/google/callback',
 
 app.get('/game', passport.authenticate('bearer', { session: false }),
     function(req, res) {
-        console.log("bearer ran");
     let user = {};
-    User.find(function(err, userData) {
-        if (err) {
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        }
-        return userData;
-    })
+    User.find({googleId: req.user.googleId})
     .then(userData => {
         user.score = userData[0].score;
         let id = userData[0].questions[0].word_id;
@@ -161,36 +150,35 @@ app.get('/game', passport.authenticate('bearer', { session: false }),
             res.status(200).json(user)         
         })
     })
+    .catch(err => {
+        console.log(err);
+        res.sendStatus(500);
+    })
 });
 
 app.put('/game', passport.authenticate('bearer', { session: false }), 
     function(req, res) {
-    User.find(function(err, userData) {
-        if (err) {
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        }
-        return userData;
-    })
-    .then(function(userData) {
-        let current = userData[0];
-        let score = current.score;
+        let score;
+        let questions;
+    User.findOne({googleId: req.user.googleId})
+    .then((currentUser) => {
+        score = currentUser.score;
         if (req.body.answer === "true") {
             score += 1;
         }
-        let questions = algorithm(current.questions, req.body.answer);
-        User.findOneAndUpdate({_id: current._id}, {$set:{score:score, questions:questions}},function(err, user){
-            if (err) {
-                return res.status(500).json({
-                    message: 'Internal Server Error'
-                });
-            }
-            Word.find({_id: questions[0].word_id}, function(err, word) {
-                res.status(200).json({score: score, question: word[0]});
-            })
-        });
-    });
+        questions = algorithm(currentUser.questions, req.body.answer);
+        return User.findOneAndUpdate({googleId: currentUser.googleId}, {$set:{score:score, questions:questions}})
+    })
+    .then(() => {
+        return Word.find({_id: questions[0].word_id})
+    })
+    .then((words) => {
+        res.status(200).json({score: score, question: words[0]})
+    })
+    .catch(err => {
+        console.log(err);
+        res.sendStatus(500);
+    })
 })
 
 app.use('*', function(req, res) {

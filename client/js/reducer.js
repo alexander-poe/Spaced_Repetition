@@ -3,7 +3,7 @@ import * as actions from './actions';
 
 const initState = {
 	question: {
-		english: "house", 
+		english: "", 
 		french: "", 
 		freq: 1,
 	}, 
