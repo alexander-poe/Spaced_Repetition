@@ -16,7 +16,9 @@ const InputCard = (props) => {
 	return(
 		
 		<div className="card">
-			<form onSubmit={ (e) => { 
+			<form 
+			autoComplete="off"
+			onSubmit={ (e) => { 
 				e.preventDefault();
 				currentAnswer === textInput.value ? 
 				props.dispatch(actions.incrementCount(props.counter)) :
