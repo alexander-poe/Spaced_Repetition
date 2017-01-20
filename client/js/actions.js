@@ -1,26 +1,32 @@
 import cookie from 'react-cookie';
 const game_url = "/game/";
 
-export const INCREMENT = 'INCREMENT';
+
 export const incrementCount = counter => ({
-	type: INCREMENT,
+	type: 'INCREMENT',
 	counter
 })
-export const DECREMENT = 'DECREMENT';
+
 export const decrementCount = counter => ({
-	type: DECREMENT,
+	type: 'DECREMENT',
 	counter
 })
-export const ENGAGE_TYPEWRITER = 'ENGAGE_TYPEWRITER';
+
 export const engageTypeWriter = num => ({
-	type: ENGAGE_TYPEWRITER,
+	type: 'ENGAGE_TYPEWRITER',
 	num
 });
-export const NEXT_QUESTION = 'NEXT_QUESTION';
+
 export const nextQuestion = question => ({
-	type: NEXT_QUESTION,
+	type: 'NEXT_QUESTION',
 	question
 });
+
+export const switchlanguage = lang => ({
+	type: 'SWITCH_LANGUAGE',
+	lang 
+})
+
 export const sendAnswer = answer => dispatch => {
 	console.log('action recieved data:' , answer)
 	return fetch(game_url, {
@@ -38,9 +44,8 @@ export const sendAnswer = answer => dispatch => {
 		console.error('reducer: ', er)
 	});
 };
-export const GET_CARD_SUCCESS = "GET_CARD_SUCCESS";
 export const getCardSuccess = question => ({
-	type: GET_CARD_SUCCESS,
+	type: 'GET_CARD_SUCCESS',
 	question
 });
 export const getCard = data => dispatch => {

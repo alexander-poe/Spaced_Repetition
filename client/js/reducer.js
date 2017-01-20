@@ -30,17 +30,22 @@ const reducer = (state=initState, action) => {
 				...state, 
 				question: action.question.question
 			}
-		case actions.ENGAGE_TYPEWRITER :
+		case 'ENGAGE_TYPEWRITER' :
 			return {
 				...state,
 				typewriter: action.num
 			}
-		case actions.NEXT_QUESTION :
+		case 'NEXT_QUESTION' :
 			console.log('this is in the reducer', action.question)
 			return { 
 				...state,
 				question: action.question.question
-			}	
+			}
+		case 'SWITCH_LANGUAGE' :
+			return {
+				...state, 
+				language: language == "english" ? "french" : "english" 
+			}		
 	}
 	return state;
 }	

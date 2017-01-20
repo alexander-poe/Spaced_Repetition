@@ -20,9 +20,9 @@ class SpacedRep extends React.Component {
 				this.props.question.french;
 	}
 	render() {
-		var language = this.props.question.english;
-		return (
 		
+
+		return (
 			<div className="outerlayer">
 				<div className="holder">
 					<Link to="/">
@@ -35,7 +35,7 @@ class SpacedRep extends React.Component {
 					className="container"
 					>	
 						<QuestionCard 
-						word={ language }
+						word={ this.props.question.french } 
 						/>
 						<InputCard />
 					</div>
@@ -48,8 +48,7 @@ class SpacedRep extends React.Component {
 					>
   						<input 
   						onClick={ (e) => {
-  							alert('hey')
-  							
+  							this.props.dispatch(actions.switchlanguage());
   						} }
   						type="checkbox"
   						/>
@@ -66,6 +65,9 @@ class SpacedRep extends React.Component {
 const mapStateToProps = (state, props) => ({
 	typewriter: state.typewriter,
 	question: state.question,
-	counter: state.counter
+	counter: state.counter,
+	language: state.language,
 });
 export default connect(mapStateToProps)(SpacedRep);
+
+// this.props.question[this.props.language] 

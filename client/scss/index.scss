@@ -11,7 +11,7 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: baseline;
-  background-color: black;
+  background-color: white;
 
 }
 
@@ -22,7 +22,7 @@ input[type=text] {
 }
 
 input {
-	width: 98.5%;
+	width: 98.2%;
 	height:344px;
 }
 
@@ -99,6 +99,14 @@ input {
 	margin: 7%;
 
 }
+
+.paris {
+	height: 272px;
+	width: 854px;
+	align-content: center;
+
+}
+
 
 @media screen and (max-width: 800px) {
 	#app {
