@@ -23,9 +23,9 @@ class SpacedRep extends React.Component {
 					<Link to="/">
 						🇫🇷
 					</Link>
-					<h2> 
+					<p className="headline"> 
 						instaFrench 
-					</h2>
+					</p>
 					<div 
 					className="container"
 					>	

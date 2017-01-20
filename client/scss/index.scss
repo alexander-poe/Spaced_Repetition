@@ -1,5 +1,5 @@
 * {
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Pacifico', cursive;
 }
 
 h2 {
@@ -51,6 +51,11 @@ body {
 
 }
 
+.headline {
+	color: white;
+	font-size: 2.8em;
+}
+
 .container {
 	background-color: #CC051C;
 	height: 350px;
@@ -76,10 +81,18 @@ body {
 
 }
 
+.cardText {
+	font-size: 2.5em;
+}
+
 input[type=text] {
 	text-align: center;
 	font-size: 2.5em;
 	color: black;
+}
+
+input:focus {
+    outline-width: 0;
 }
 
 input {
@@ -108,6 +121,18 @@ input {
 	input {
 		width: 96%;
 		height:344px;
+	}
+	.cardText {
+	font-size: 1.8em;
+	}
+	input[type=text] {
+		text-align: center;
+		font-size: 1.8em;
+		color: black;
+	}
+	.headline {
+		color: white;
+		font-size: 2.4em;
 	}
 }
 

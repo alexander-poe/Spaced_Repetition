@@ -7,7 +7,7 @@ class Welcome extends React.Component {
 			
 			<div>
 				<div className="welcome">
-					<h2> instaFrench 🇫🇷 </h2>
+					<p className="headline"> instaFrench 🇫🇷 </p>
 				</div>
 				<div 
 				className="login"
@@ -16,7 +16,7 @@ class Welcome extends React.Component {
 					href="/auth/google"
 					>
 					<img 
-					className="logingoog" 
+					className="logingoog shake" 
 					src='./assets/goog.png'
 					/>
 					</a>

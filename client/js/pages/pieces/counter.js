@@ -5,7 +5,13 @@ const Counter = (props) => {
 	return (
 		
 		<div className="counter-box">
-			<span className="counter-box"><h3>{props.count}</h3></span>
+			<span 
+			className="counter-box"
+			>
+			<h2>
+			{props.count}
+			</h2>
+			</span>
 		</div>
 		
 		)
