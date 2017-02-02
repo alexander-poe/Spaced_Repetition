@@ -18,7 +18,7 @@ describe('GAME', function() {
 		runServer(function() {
 			return createArrayOfQuestions()
 			.then(questions => {
-				User.create({
+				return User.create({
 					accessToken: "123",
 					googleId: "111",
 					name: "John Doe",
