@@ -30,7 +30,6 @@ export const switchlanguage = language => ({
 })
 
 export const sendAnswer = answer => dispatch => {
-	console.log('action recieved data:' , answer)
 	return fetch(game_url, {
 		method : "PUT",
 		body : JSON.stringify({ answer }),

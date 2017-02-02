@@ -13,7 +13,6 @@ dotenv.config();
 var BearerStrategy = require('passport-http-bearer').Strategy;
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-
 //GOOGLE STRATEGY
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -53,7 +52,7 @@ passport.use(new GoogleStrategy({
         })
     }
 
-    function createArrayOfQuestions() {
+    export const createArrayOfQuestions = () => {
         return Word.find()
         .then(words => {
             return words.map((word) => {
@@ -96,8 +95,7 @@ const algorithm = (questions, answer) => {
     return newQuestions;
 }
 
-
-const DATABASE_URL = process.env.DATABASE_URL;
+const DATABASE_URL = process.env.TEST_DATABASE_URL || process.env.DATABASE_URL;
 
 const HOST = process.env.HOST;
 const PORT = process.env.PORT || 3000;
@@ -106,7 +104,9 @@ console.log(`Server running in ${process.env.NODE_ENV} mode`);
 
 const app = express();
 
-app.use(express.static(process.env.CLIENT_PATH));
+if (process.env.CLIENT_PATH) {
+ app.use(express.static(process.env.CLIENT_PATH));   
+}
 
 app.use(bodyParser.json());
 
@@ -175,27 +175,44 @@ app.use('*', function(req, res) {
     });
 });
 
+let server;
 
-const runServer = (callback) => {
-    mongoose.connect(DATABASE_URL, (err) => {
-        if (err && callback) {
-            return callback(err);
-        }
-
-        app.listen(PORT, () => {
-            console.log('Listening on localhost:' + PORT);
+function runServer(callback) {
+    return new Promise((resolve, reject) => {
+        mongoose.connect(DATABASE_URL, (err) => {
+            if (err && callback) {
+                console.log(err);
+                return callback(err);
+            }
+        });
+        server = app.listen(PORT, HOST, () => {
+          console.log(`Your app is listening on port ${PORT}`);
             if (callback) {
                 callback();
             }
-        });
-    });
-};
+          resolve(server);
+      }).on('error', err => {
+          reject(err)
+      });
+  });
+}
 
+function closeServer() {
+  return new Promise((resolve, reject) => {
+    console.log('Closing server');
+    server.close(err => {
+      if (err) {
+        reject(err);
+        // so we don't also call `resolve()`
+        return;
+    }
+    resolve();
+});
+});
+}
 
 if (require.main === module) {
-    runServer((err) => {
-        if (err) {
-            console.error(err);
-        }
-    });
-};
+    runServer();
+}
+
+export { app, runServer, closeServer };
