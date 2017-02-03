@@ -1,33 +1,34 @@
 import React from 'react';
-import { Link }  from 'react-router';
 
 class Welcome extends React.Component {
 	render() {
 		return (
-			
+
 			<div>
 				<div className="welcome">
 					<p className="headline"> instaFrench 🇫🇷 </p>
 				</div>
-				<div 
+				<div
 				className="login"
 				>
-					<a 
+					<a
 					href="/auth/google"
 					>
-					<img 
-					className="logingoog shake" 
+					<img
+					alt="login"
+					className="logingoog shake"
 					src='./assets/goog.png'
 					/>
 					</a>
-				</div>	
-					<img 
-					className="paris" 
+				</div>
+					<img
+					alt="paris"
+					className="paris"
 					src='./assets/paris.png'
 					/>
 			</div>
-			)
+		);
 	}
 }
 
-export default Welcome;	
+export default Welcome;
