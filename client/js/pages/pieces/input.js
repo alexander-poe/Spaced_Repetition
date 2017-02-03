@@ -10,7 +10,6 @@ const answerCheck = (guess, answer) => {
 const InputCard = (props) => {
 	var textInput = '';
 	const currentAnswer = props.answer
-	console.log(currentAnswer)
 	const success = ['Good Job!', 'Bien!', 'Génial', 'Win!']
 	const failure = ['Almost!', 'ça va', 'Wrong!', 'Try Again']
 	return(
@@ -28,7 +27,6 @@ const InputCard = (props) => {
 				const randomizer = Math.floor(Math.random() * 3);
 				if (status) {
 					textInput.value = success[randomizer];
-					console.log(textInput.value)
 				}
 				if (!status) {
 					textInput.value = failure[randomizer];

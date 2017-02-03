@@ -16,7 +16,6 @@ const initState = {
 const reducer = (state=initState, action) => {
 	switch (action.type) {
 		case 'INCREMENT' :
-			console.log('Incremment', action.counter)
 			return {
 				...state,
 				counter: action.counter +1
@@ -27,14 +26,12 @@ const reducer = (state=initState, action) => {
 				counter: action.counter -1
 			}
 		case 'GET_CARD_SUCCESS' :
-			console.log(action.question.question)
 			var answer;
 			if(state.language === "french") {
 				answer = action.question.question.english
 			} else {
 				answer = action.question.question.french
 			}
-			console.log("answer", answer)
 			return {
 				...state, 
 				question: action.question.question,
@@ -46,14 +43,12 @@ const reducer = (state=initState, action) => {
 				typewriter: action.num
 			}
 		case 'NEXT_QUESTION' :
-			console.log('this is in the reducer', action.question)
 			var answer;
 			if(state.language === "french") {
 				answer = action.question.question.english
 			} else {
 				answer = action.question.question.french
 			}
-			console.log("answer", answer);
 			return { 
 				...state,
 				question: action.question.question,

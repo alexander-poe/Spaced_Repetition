@@ -43,21 +43,13 @@ describe('reducer', () => {
     })
     state.typewriter.should.equal(1);
   })
-  it('should handle ENGAGE_TYPEWRITER', () => {
+  it('should handle NEXT_QUESTION', () => {
     var question = {score: 0, question: {french: 'un', english: 'one'}}
     var state = reducer([], {
       type: 'NEXT_QUESTION',
       question: question
     })
     state.question.should.equal(question.question);
-  })
-  it('should handle SWITCH_LANGUAGE', () => {
-    var question = {score: 0, question: {french: 'un', english: 'one'}}
-    var state = reducer([], {
-      type: 'SWITCH_LANGUAGE',
-      language: "english"
-    })
-    state.language.should.equal("english");
   })
 });
 
