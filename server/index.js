@@ -23,7 +23,7 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, done) {
     getArrayOfQuestions(profile.id)
     .then(questions => {
-        return User.findOneAndUpdate({googleId: profile.id}, 
+        return User.findOneAndUpdate({googleId: profile.id},
             {$set: {
                 name: profile.displayName,
                 accessToken: accessToken,
@@ -66,15 +66,15 @@ passport.use(new GoogleStrategy({
 passport.use(
     new BearerStrategy(
         function(accessToken, done) {
-            User.findOne({ accessToken: accessToken }, 
+            User.findOne({ accessToken: accessToken },
                 function (err, user) {
-                  if (err) { 
+                  if (err) {
                     console.log("error");
-                    return done(err); 
+                    return done(err);
                     }
-                  else if (!user) { 
+                  else if (!user) {
                     console.log("user not found");
-                    return done(null, false); 
+                    return done(null, false);
                     } else {
                     return done(null, user, { scope: 'read' });
                     }
@@ -114,7 +114,7 @@ app.use(bodyParser.json());
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
-app.get('/auth/google/callback', 
+app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/', session: false }),
   function(req, res) {
     res.cookie('accessToken', req.user.accessToken, {expires: 0});
@@ -135,7 +135,7 @@ app.get('/game', passport.authenticate('bearer', { session: false }),
                 });
             }
             user.question = word[0];
-            res.status(200).json(user)         
+            res.status(200).json(user)
         })
     })
     .catch(err => {
@@ -144,7 +144,7 @@ app.get('/game', passport.authenticate('bearer', { session: false }),
     })
 });
 
-app.put('/game', passport.authenticate('bearer', { session: false }), 
+app.put('/game', passport.authenticate('bearer', { session: false }),
     function(req, res) {
         let score;
         let questions;

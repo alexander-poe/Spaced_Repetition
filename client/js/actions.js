@@ -1,34 +1,28 @@
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
-import cookie from 'react-cookie';
 const game_url = "/game/";
-
+import cookie from 'react-cookie';
 
 export const incrementCount = counter => ({
 	type: 'INCREMENT',
 	counter
-})
-
+});
 export const decrementCount = counter => ({
 	type: 'DECREMENT',
 	counter
-})
-
+});
 export const engageTypeWriter = num => ({
 	type: 'ENGAGE_TYPEWRITER',
 	num
 });
-
 export const nextQuestion = question => ({
 	type: 'NEXT_QUESTION',
 	question
 });
-
 export const switchlanguage = language => ({
 	type: 'SWITCH_LANGUAGE',
 	language 
-})
-
+});
 export const sendAnswer = answer => dispatch => {
 	console.log('action recieved data:' , answer)
 	return fetch(game_url, {

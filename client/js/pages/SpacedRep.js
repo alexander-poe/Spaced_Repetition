@@ -11,19 +11,25 @@ class SpacedRep extends React.Component {
 		super(props);
 	}	
 	componentDidMount() {
-		 this.props.dispatch(actions.getCard());
-		 	 
+		 this.props.dispatch(actions.getCard());	 	 
 	}
 	render() {
-		
-
 		return (
-			<div className="outerlayer">
-				<div className="holder">
-					<Link to="/">
+			
+			<div 
+			className="outerlayer"
+			>
+				<div 
+				className="holder"
+				>
+					<Link 
+					to="/"
+					>
 						🇫🇷
 					</Link>
-					<p className="headline"> 
+					<p 
+					className="headline"
+					> 
 						instaFrench 
 					</p>
 					<div 
@@ -64,5 +70,3 @@ const mapStateToProps = (state, props) => ({
 	language: state.language,
 });
 export default connect(mapStateToProps)(SpacedRep);
-
-// this.props.question[this.props.language] 
