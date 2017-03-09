@@ -5,8 +5,14 @@ class Welcome extends React.Component {
 		return (
 
 			<div>
-				<div className="welcome">
-					<p className="headline"> instaFrench 🇫🇷 </p>
+				<div
+				className="welcome"
+				>
+					<p
+					className="headline"
+					>
+					instaFrench 🇫🇷
+					</p>
 				</div>
 				<div
 				className="login"
@@ -15,19 +21,13 @@ class Welcome extends React.Component {
 					href="/auth/google"
 					>
 					<img
-					alt="login"
 					className="logingoog shake"
 					src='./assets/goog.png'
 					/>
 					</a>
 				</div>
-					<img
-					alt="paris"
-					className="paris"
-					src='./assets/paris.png'
-					/>
 			</div>
-		);
+			)
 	}
 }
 

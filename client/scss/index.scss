@@ -11,8 +11,8 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: baseline;
-  background-color: white;
-  
+  background-image: url('../assets/paris2.jpg');
+  background-size: cover;
 }
 
 .logingoog {
@@ -35,9 +35,9 @@ body {
   height: 500px;
   width: 60%;
   margin: 9%;
-  align-self: flex-end; 
-  text-align: center;   
-  
+  align-self: flex-end;
+  text-align: center;
+
 }
 
 .centered {

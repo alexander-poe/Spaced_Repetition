@@ -8,42 +8,56 @@ import Counter from './pieces/counter';
 
 class SpacedRep extends React.Component {
 	componentDidMount() {
-		this.props.dispatch(actions.getCard());
+		 this.props.dispatch(actions.getCard());
 	}
-
 	render() {
 		return (
-			<div className="outerlayer">
-			<div className="holder">
-			<Link to="/">
-			🇫🇷
-			</Link>
-			<p className="headline">
-			instaFrench
-			</p>
+
 			<div
-			className="container"
+			className="outerlayer"
 			>
-			<QuestionCard
-			word={this.props.question[this.props.language]}
-			/>
-			<InputCard />
-			</div>
-			<Counter
-			count={this.props.counter}
-			/>
-			</div>
-			<label
-			className="switch"
-			>
-			<input
-			onClick={() => { this.props.dispatch(actions.switchlanguage()); }}
-			type="checkbox"
-			/>
-			<div className="slider round" />
-			</label>
-			</div>
-		);
+				<div
+				className="holder"
+				>
+					<Link
+					to="/"
+					>
+						🇫🇷
+					</Link>
+					<p
+					className="headline"
+					>
+						instaFrench
+					</p>
+					<div
+					className="container"
+					>
+						<QuestionCard
+						word={ this.props.question[this.props.language] }
+						/>
+						<InputCard />
+					</div>
+					<Counter
+					count={ this.props.counter }
+					/>
+				</div>
+					<label
+					className="switch"
+					>
+  						<input
+  						onClick={ (e) => {
+  							this.props.dispatch(actions.switchlanguage());
+  						} }
+  						type="checkbox"
+  						/>
+  						<div
+  						className="slider round"
+  						>
+  						</div>
+					</label>
+	    	</div>
+
+	    )
 	}
 }
 const mapStateToProps = (state, props) => ({
@@ -52,6 +66,5 @@ const mapStateToProps = (state, props) => ({
 	counter: state.counter,
 	language: state.language,
 });
-export default connect(mapStateToProps)(SpacedRep);
 
-// this.props.question[this.props.language]
+export default connect(mapStateToProps)(SpacedRep);

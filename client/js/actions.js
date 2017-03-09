@@ -1,10 +1,9 @@
-import cookie from 'react-cookie';
 
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
-const game_url = '/game/';
-
+const game_url = "/game/";
+import cookie from 'react-cookie';
 
 export const incrementCount = counter => ({
 	type: 'INCREMENT',
@@ -20,12 +19,10 @@ export const engageTypeWriter = num => ({
 	type: 'ENGAGE_TYPEWRITER',
 	num
 });
-
 export const nextQuestion = question => ({
 	type: 'NEXT_QUESTION',
 	question
 });
-
 export const switchlanguage = language => ({
 	type: 'SWITCH_LANGUAGE',
 	language

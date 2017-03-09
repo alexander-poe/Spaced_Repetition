@@ -22,8 +22,8 @@ passport.use(new GoogleStrategy({
   (accessToken, refreshToken, profile, done) => {
     getArrayOfQuestions(profile.id)
     .then(questions => {
-        return User.findOneAndUpdate({ googleId: profile.id },
-            { $set: {
+        return User.findOneAndUpdate({googleId: profile.id},
+            {$set: {
                 name: profile.displayName,
                 accessToken,
                 score: 0,
@@ -209,7 +209,11 @@ function closeServer() {
 }
 
 if (require.main === module) {
-    runServer();
-}
+    runServer((err) => {
+        if (err) {
+            console.error(err);
+        }
+    });
+};
 
 export { app, runServer, closeServer };

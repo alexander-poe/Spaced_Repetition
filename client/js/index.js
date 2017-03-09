@@ -7,10 +7,8 @@ import store from './store';
 import Welcome from './pages/Welcome';
 import SpacedRep from './pages/SpacedRep';
 
-
 document.addEventListener('DOMContentLoaded', () => {
 	ReactDOM.render(
-
 		<Provider store={store}>
 			<Router history={hashHistory}>
 				<Route path="/" component={Welcome} />
