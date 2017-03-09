@@ -1,3 +1,6 @@
+
+[![Build Status](https://travis-ci.org/alexpoe22/Spaced_Repetition.svg?branch=master)](https://travis-ci.org/alexpoe22/Spaced_Repetition)
+
 # InstaFrench
 
 Link: https://stark-river-80170.herokuapp.com/

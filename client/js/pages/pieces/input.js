@@ -1,18 +1,18 @@
 import React from 'react';
-import * as actions from '../../actions';
 import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
 const answerCheck = (guess, answer) => {
 	if (guess === answer) return true;
 	else return false;
 }
+
 const InputCard = (props) => {
 	var textInput = '';
 	const currentAnswer = props.answer
 	const success = ['Good Job!', 'Bien!', 'Génial', 'Win!']
 	const failure = ['Almost!', 'ça va', 'Wrong!', 'Try Again']
 	return(
-
 		<div
 		className="card"
 		>
@@ -34,9 +34,9 @@ const InputCard = (props) => {
 				/>
 			</form>
 		</div>
+	);
+};
 
-	)
-}
 const mapStateToProps = (state, props) => ({
 	answer: state.answer,
 	question: state.question,

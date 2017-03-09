@@ -1,72 +1,70 @@
 import React from 'react';
-import * as actions from '../actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import * as actions from '../actions';
 import QuestionCard from './pieces/questionscard';
 import InputCard from './pieces/input';
 import Counter from './pieces/counter';
 
 class SpacedRep extends React.Component {
-	constructor(props) {
-		super(props);
-	}	
 	componentDidMount() {
-		 this.props.dispatch(actions.getCard());	 	 
+		 this.props.dispatch(actions.getCard());
 	}
 	render() {
 		return (
-			
-			<div 
+
+			<div
 			className="outerlayer"
 			>
-				<div 
+				<div
 				className="holder"
 				>
-					<Link 
+					<Link
 					to="/"
 					>
 						🇫🇷
 					</Link>
-					<p 
+					<p
 					className="headline"
-					> 
-						instaFrench 
+					>
+						instaFrench
 					</p>
-					<div 
+					<div
 					className="container"
-					>	
-						<QuestionCard 
-						word={ this.props.question[this.props.language] } 
+					>
+						<QuestionCard
+						word={ this.props.question[this.props.language] }
 						/>
 						<InputCard />
 					</div>
-					<Counter 
+					<Counter
 					count={ this.props.counter }
 					/>
 				</div>
-					<label 
+					<label
 					className="switch"
 					>
-  						<input 
+  						<input
   						onClick={ (e) => {
   							this.props.dispatch(actions.switchlanguage());
   						} }
   						type="checkbox"
   						/>
-  						<div 
+  						<div
   						className="slider round"
   						>
   						</div>
 					</label>
 	    	</div>
-	    
+
 	    )
 	}
-}   
+}
 const mapStateToProps = (state, props) => ({
 	typewriter: state.typewriter,
 	question: state.question,
 	counter: state.counter,
 	language: state.language,
 });
+
 export default connect(mapStateToProps)(SpacedRep);
