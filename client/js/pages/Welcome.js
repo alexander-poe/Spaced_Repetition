@@ -21,7 +21,7 @@ class Welcome extends React.Component {
 					href="/auth/google"
 					>
 					<img
-					className="logingoog shake"
+					className="logingoog"
 					src='./assets/goog.png'
 					/>
 					</a>
