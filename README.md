@@ -11,8 +11,8 @@ If you are into learning new things, and if those things are the numbers 1-10 in
 Made using React, Redux, Node this app will not only teach you un through dix but will make sure you a logged in to do so. 
 
 All seriousness aside, 2.0 will have these features.
-	: inputable questions & answers
-	: cleaner UI & UX
+	<li>: inputable questions & answers</li>
+	<li>: cleaner UI & UX</li>
 	
 
 ## Screenshots
